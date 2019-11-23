@@ -1,6 +1,6 @@
-# Terraform module helm-deploy 
+# Terraform module helm-deploy
 
-This terraform module will help you deploy the helm charts on local. 
+This terraform module will help you deploy the helm charts on local.
 
 - [Requirements](#Requirements)
 - [Usage](#usage)
@@ -25,7 +25,6 @@ module "helm_deploy" {
   deployment_environment = "dev"
   deployment_endpoint    = "artemis.fuchicorp.com"
   deployment_path        = "artemis"
-  deployment_version     = "v1.0.0"
   env_vars               = "${var.env_vars}"
 }
 ```
@@ -40,7 +39,6 @@ For more info, please see the [variables file](variables.tf).
 | `deployment_environment` | Name of the namespace | `(Required)` |
 | `deployment_endpoint` | Ingress endpoint `example.fuchicorp.com` | `(Required)` |
 | `deployment_path` | path for helm chart on local | `(Required)` |
-| `deployment_version` | Each deployment should be  diff name | `(Optional)` |
 | `env_vars` | Environment veriable for the containers takes map | `(Required)` |
 
 ## Dependencies

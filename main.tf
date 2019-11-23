@@ -6,9 +6,6 @@ locals {
     ## <deployment_name> for backend.tf and also release name
     deployment_name = "${lower(var.deployment_name)}"
 
-    ## <deployment_version> each time when deployment happend should deploy different version
-    deployment_version = "${lower(var.deployment_version)}"
-
     ## <env_vars> for global environment variables takes map()
     env_vars = "${trimspace(join("\n", data.template_file.env_vars.*.rendered))}"
   }
@@ -50,7 +47,6 @@ resource "helm_release" "helm_deployment" {
   name      = "${var.deployment_name}-${var.deployment_environment}"
   namespace = "${var.deployment_environment}"
   chart     = "./charts/${var.deployment_path}"
-  version   = "${local.required_values.deployment_version}"
 
   values = [
     "${local_file.deployment_values.content}",

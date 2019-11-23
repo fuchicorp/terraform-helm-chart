@@ -8,11 +8,6 @@ variable "deployment_environment" {
   description = "The name of the environment"
 }
 
-## Version of the helm chart
-variable "deployment_version" {
-  description = "Version of the helm chart"
-}
-
 ## Chart location or chart name
 variable "deployment_path" {
   description = "Chart location or chart name <stable/example>"
