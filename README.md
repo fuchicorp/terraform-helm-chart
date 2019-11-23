@@ -71,19 +71,18 @@ follow the file path
 
 For more info, please see the [variables file](variables.tf).
 
-| Variable               | Description                         | Default                                               |
-| :--------------------- | :---------------------------------- | :---------------------------------------------------- |
-| `deployment_name` | The name of the deployement for helm release | `(Required)` |
-| `deployment_environment` | Name of the namespace | `(Required)` |
-| `deployment_endpoint` | Ingress endpoint `example.fuchicorp.com` | `(Required)` |
-| `deployment_path` | path for helm chart on local | `(Required)` |
-| `env_vars` | Environment veriable for the containers takes map | `(Optional)` |
+| Variable               | Description                         | Default                                               | Type |
+| :--------------------- | :---------------------------------- | :---------------------------------------------------: | :--------------------: |
+| `deployment_name` | The name of the deployement for helm release | `(Required)` | `string` |
+| `deployment_environment` | Name of the namespace | `(Required)` | `string` |
+| `deployment_endpoint` | Ingress endpoint `example.fuchicorp.com` | `(Required)` | `domain/string` |
+| `deployment_path` | path for helm chart on local | `(Required)` | `string` |
+| `env_vars` | Environment veriable for the containers takes map | `(Optional)` | `map` |
+| `timeout` | If you would like to increase the timeout | `(Optional)` | `number` |
+| `recreate_pods` | On update performs pods restart for the resource if applicable. | `(Optional)` | `bool` |
 
-## Dependencies
 
-This module exposes two variables to work around the limitations of modules in Terraform.
 
-| Name               | Type                         | Description                                     |
-| :----------------- | :--------------------------- | :---------------------------------------------- |
-| `depends_on` | `list variable` | Dummy variable to enable module dependencies. |
-| `dependency` | `list output` | Dummy output to enable module dependencies. |
+Crated for FuchiCorp 
+
+

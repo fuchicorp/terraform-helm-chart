@@ -12,6 +12,9 @@ locals {
 
   ## When all requred values all deffined then also will incloude users values
   template_all_values = "${merge(local.required_values, var.template_custom_vars)}"
+
+  timeout       = "${var.timeout}"
+  recreate_pods = "${var.recreate_pods}"
 }
 
 ## template_file.env_vars just converting to right values
@@ -44,9 +47,11 @@ locals {
 
 ## helm_release.helm_deployment is actual helm deployment
 resource "helm_release" "helm_deployment" {
-  name      = "${var.deployment_name}-${var.deployment_environment}"
-  namespace = "${var.deployment_environment}"
-  chart     = "./charts/${var.deployment_path}"
+  name          = "${var.deployment_name}-${var.deployment_environment}"
+  namespace     = "${var.deployment_environment}"
+  chart         = "./charts/${var.deployment_path}"
+  timeout       = "${local.timeout}"
+  recreate_pods = "${local.recreate_pods}"
 
   values = [
     "${local_file.deployment_values.content}",

@@ -31,3 +31,11 @@ variable "env_vars" {
 variable "trigger" {
   default = "UUID"
 }
+
+variable "timeout" {
+  default = "400"
+}
+
+variable "recreate_pods" {
+  default = false
+}
