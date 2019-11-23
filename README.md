@@ -77,6 +77,7 @@ For more info, please see the [variables file](variables.tf).
 | `deployment_environment` | Name of the namespace | `(Required)` | `string` |
 | `deployment_endpoint` | Ingress endpoint `example.fuchicorp.com` | `(Required)` | `domain/string` |
 | `deployment_path` | path for helm chart on local | `(Required)` | `string` |
+| `template_custom_vars` | Template custom veriables you can modify variables by parsting the `template_custom_vars` | (Optional) | `map` |
 | `env_vars` | Environment veriable for the containers takes map | `(Optional)` | `map` |
 | `timeout` | If you would like to increase the timeout | `(Optional)` | `number` |
 | `recreate_pods` | On update performs pods restart for the resource if applicable. | `(Optional)` | `bool` |
