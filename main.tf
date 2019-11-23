@@ -47,7 +47,7 @@ locals {
 
 ## helm_release.helm_deployment is actual helm deployment
 resource "helm_release" "helm_deployment" {
-  name      = "${deployment_name}-${var.deployment_environment}"
+  name      = "${var.deployment_name}-${var.deployment_environment}"
   namespace = "${var.deployment_environment}"
   chart     = "./charts/${var.deployment_path}"
   version   = "${var.deployment_version}"
