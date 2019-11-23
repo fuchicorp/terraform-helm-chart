@@ -84,6 +84,46 @@ For more info, please see the [variables file](variables.tf).
 
 
 
-Crated for FuchiCorp 
+## Custom variable deployment 
+
+```
+module "helm_deploy" {
+  # source = "git::https://github.com/fuchicorp/helm-deploy.git"
+
+  source  = "../../helm-deploy"
+  timeout = "500"
+
+  deployment_name        = "artemis-deployment"
+  deployment_environment = "dev"
+  deployment_endpoint    = "artemis.fuchicorp.com"
+  deployment_path        = "artemis"
+
+  template_custom_vars = {
+    deployment_image = "nginx"
+  }
+}
+```
+
+Every key and value you define inside `template_custom_vars` will used for your `values-template.yaml` in this case 
+
+`deployment_image` value will replace inside file to `nginx` 
+
+```
+╭─ fsadykov ~/Projects/fuchicorp-projects/terraform-modules/deploy-testing
+╰─(‹master*› ) cat charts/artemis/values.yaml| grep repository
+  repository: ${deployment_image}
+```
+
+Output file will be: 
+
+```
+╭─ fsadykov ~/Projects/fuchicorp-projects/helm-deploy
+╰─(‹master*› ) cat .cache/values.yaml | grep reposit
+  repository: nginx
+```
+
+You can see the `repository` replaced to right value
+
+Crated for FuchiCorp developed by DevOps Team
 
 
