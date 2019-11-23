@@ -50,7 +50,7 @@ resource "helm_release" "helm_deployment" {
   name      = "${var.deployment_name}-${var.deployment_environment}"
   namespace = "${var.deployment_environment}"
   chart     = "./charts/${var.deployment_path}"
-  version   = "${var.deployment_version}"
+  version   = "${locals.required_values.deployment_version}"
 
   values = [
     "${local_file.deployment_values.content}",
