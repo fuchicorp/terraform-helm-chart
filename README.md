@@ -4,13 +4,13 @@ This terraform module will help you deploy the helm charts on local.
 
 - [Requirements](#Requirements)
 
-- [Before you begin](#Before you begin)
+- [Before you begin](#before-you-begin)
 
 - [Usage](#usage)
 
 - [Variables](#variables)
 
-- [Custom Values](#Custom variable deployment )
+- [Custom Values](#custom-variable-deployment)
 
   
 
