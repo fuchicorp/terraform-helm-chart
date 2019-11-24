@@ -3,10 +3,16 @@
 This terraform module will help you deploy the helm charts on local.
 
 - [Requirements](#Requirements)
+
+- [Before you begin](#Before you begin)
+
 - [Usage](#usage)
+
 - [Variables](#variables)
-- [Dependencies](#dependencies)
-- [Links](#links)
+
+- [Custom Values](#Custom variable deployment )
+
+  
 
 ## Requirements
 
@@ -124,6 +130,8 @@ Output file will be:
 
 You can see the `repository` replaced to right value
 
-Crated for FuchiCorp developed by DevOps Team
+
+
+Created for FuchiCorp developed by FuchiCorp DevOps team enjoy using it
 
 
