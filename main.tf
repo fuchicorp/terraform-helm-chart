@@ -38,7 +38,7 @@ data "template_file" "chart_values_template" {
 ## local_file.deployment_values will create the file output path.module/.cache/values.yaml
 resource "local_file" "deployment_values" {
   content  = "${trimspace(data.template_file.chart_values_template.rendered)}"
-  filename = "${path.module}/.cache/values.yaml"
+  filename = "charts/.cache/${var.deployment_name}-values.yaml"
 }
 
 locals {
