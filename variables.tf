@@ -39,3 +39,7 @@ variable "timeout" {
 variable "recreate_pods" {
   default = false
 }
+ variable "release_version" {
+   description = "(Required) Specify the exact chart version to install"
+  
+ }

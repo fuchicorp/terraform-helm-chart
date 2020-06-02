@@ -87,6 +87,7 @@ For more info, please see the [variables file](variables.tf).
 | `env_vars` | Environment veriable for the containers takes map | `(Optional)` | `map` |
 | `timeout` | If you would like to increase the timeout | `(Optional)` | `number` |
 | `recreate_pods` | On update performs pods restart for the resource if applicable. | `(Optional)` | `bool` |
+| `release_version` | Specify the exact chart version to install. | `(Required)` | `string` |
 
 
 
@@ -133,5 +134,3 @@ You can see the `repository` replaced to right value
 
 
 Created for FuchiCorp developed by FuchiCorp DevOps team enjoy using it
-
-
