@@ -8,3 +8,6 @@
 # .tfvars files
 *.tfvars
 .cache
+
+# terraform module testing folder
+*test*
