@@ -41,5 +41,12 @@ variable "recreate_pods" {
 }
  variable "release_version" {
    description = "(Required) Specify the exact chart version to install"
+   default     = " 0.1.0"
   
  }
+
+
+ variable "remote_chart" {
+   default     = "false"
+ }
+ 
