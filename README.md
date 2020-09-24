@@ -55,6 +55,8 @@ module "helm_deploy" {
   deployment_environment = "dev"
   deployment_endpoint    = "example.fuchicorp.com"
   deployment_path        = "example"
+  release_version        = "0.0.4"                 
+
 }
 EOF
 ```
@@ -103,6 +105,8 @@ module "helm_deploy" {
   deployment_environment = "dev"
   deployment_endpoint    = "artemis.fuchicorp.com"
   deployment_path        = "artemis"
+  release_version        = "0.0.4"                  
+
 
   template_custom_vars = {
     deployment_image = "nginx"
