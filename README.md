@@ -85,7 +85,8 @@ For more info, please see the [variables file](variables.tf).
 | `deployment_path` | path for helm chart on local | `(Required)` | `string` |
 | `release_version` | Specify the exact chart version to install. | `(Required)` | `string` |
 | `remote_chart` | Specify if you want to deploy the remote chart to `"True"` default value is `"False"`| `(Optional)` | `bool` |
-| `template_custom_vars` | Template custom veriables you can modify variables by parsting the `template_custom_vars` | (Optional) | `map` |
+| `values` | Name of the values.yaml file | `(Optional)` | `string` |
+| `template_custom_vars` | Template custom veriables you can modify variables by parsting the `template_custom_vars` | `(Optional)` | `map` |
 | `env_vars` | Environment veriable for the containers takes map | `(Optional)` | `map` |
 | `timeout` | If you would like to increase the timeout | `(Optional)` | `number` |
 | `recreate_pods` | On update performs pods restart for the resource if applicable. | `(Optional)` | `bool` |
@@ -131,9 +132,17 @@ You can see the `repository` replaced to the right value
 
 ## If you would like to deploy remote chart
 
-in order to deploy remote charts, you should have your own `values.yaml` file,
-you need to include these parameters in your `module.tf` file :
+REMOTE CHARTS are available on versions `"0.0.4"` and up.
 
+In order to deploy remote charts, you should have your own `values.yaml` file,
+
+your `values.yaml` and `module.tf` should be in the some folder. 
+
+```yaml
+./module.tf  
+./values.yaml 
+```
+`module.tf` file should look like this
 ```
 module "helm_remote_deployment" {
   source = "fuchicorp/chart/helm"
@@ -141,10 +150,10 @@ module "helm_remote_deployment" {
   deployment_environment = "dev"                    ## Name of the namespace
   deployment_endpoint    = "example.fuchicorp.com"  ## Ingress endpoint
   deployment_path        = "stable/jenkins"         ## Path for helm chart
-  release_version        = "0.0.4"                  ## Remote charts are available on version "0.0.4" and up
+  release_version        = "0.0.4"                  ## Chart version
   remote_chart           = "true"
   values                 = "values.yaml"            ## your values.yaml file 
 }
 ```
 
-Developed by FuchiCorp DevOps team, Enjoy using it. 
+               Developed by FuchiCorp DevOps team, Enjoy using it. 
