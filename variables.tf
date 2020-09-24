@@ -50,3 +50,7 @@ variable "recreate_pods" {
    default     = "false"
  }
  
+variable "values" {
+   default     = "values.yaml"
+ }
+ 
