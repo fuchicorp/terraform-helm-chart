@@ -70,6 +70,7 @@ resource "helm_release" "helm_remote_deployment" {
   chart         = "${var.deployment_path}"
   timeout       = "${local.timeout}"
   recreate_pods = "${local.recreate_pods}"
+  version       = "${var.release_version}"
   values = [
     "${file("${var.values}")}"
   ]
