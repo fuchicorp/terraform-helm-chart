@@ -1,0 +1,19 @@
+================================================================
+Hello, Congrats, You were able to configure and deploy all common tools.
+Please use bellow information to access to your applicaions. 
+
+Author: Farkhod Sadykov sadykovfarkhod@gmail.com
+             
+######################## helm_deploy ########################
+
+URL: https://github.com/fuchicorp/helm-deploy.git
+source  = "fuchicorp/chart/helm"
+deployment_name        = "${var.deployment_name}-${var.deployment_environment}"
+deployment_environment = "dev"
+deployment_endpoint    = "${var.deployment_endpoint}
+deployment_path        = "${var.deployment_path}"
+release_version        = "${var.release_version}""
+
+##########################################################
+
+===============================================================
