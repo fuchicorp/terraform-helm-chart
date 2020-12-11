@@ -4,12 +4,11 @@ output "success_output" {
 
  ######################### Helm Deploy #########################
 
-  Congrats! Your helm chart has deployed successfully. Please see 
-  below for your chart details:
+  Congrats! Your helm chart has deployed successfully. Please see below for your chart details:
 
   Chart Name: "${var.deployment_name}"
   Deployment Enviroment/Namespace: "${var.deployment_environment}"
-  Chart Version: "${var.release_version}"
+  Chart version: "${var.release_version}"
 
   Author: Fuchicorp
 
