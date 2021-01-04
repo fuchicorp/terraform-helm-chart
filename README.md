@@ -60,11 +60,19 @@ module "helm_deploy" {
 }
 EOF
 ```
+Next create an simple output file named `output.tf` and copy and paste the following:
+```
+output "success" {
+  value = "${module.helm_deploy.success_output}"
+}
+
+```
 
 follow the file path 
 
 ```yaml
 ./module.tf
+./output.tf
 ./charts/
     /example ## Your chart location 
       /Chart.yaml
@@ -140,10 +148,13 @@ REMOTE CHARTS are available on versions `"0.0.4"` and up.
 
 In order to deploy remote charts, you should have your own `values.yaml` file,
 
-your `values.yaml` and `module.tf` should be in the some folder. 
+`module.tf` and `output.tf` in the same folder.  
+
+Please follow the steps to configure `module.tf` and `output.tf`
 
 ```yaml
 ./module.tf  
+./output.tf
 ./values.yaml 
 ```
 `module.tf` file should look like this
@@ -158,6 +169,13 @@ module "helm_remote_deployment" {
   remote_chart           = "true"
   values                 = "values.yaml"            ## your values.yaml file 
 }
+```
+Next create an simple output file named `output.tf` and copy and paste the following:
+```
+output "success" {
+  value = "${module.helm_remote_deployment.success_output}"
+}
+
 ```
 
                Developed by FuchiCorp DevOps team, Enjoy using it. 
