@@ -1,7 +1,7 @@
 
 # required helm provider for this module 
 provider "helm" { 
-    version = "1.3.2"
+    version = "1.3.2" #previous version was "0.10.6"
 }
 
 # Required provider for local files 
