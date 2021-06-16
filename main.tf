@@ -40,7 +40,9 @@ data "template_file" "chart_values_template" {
 resource "local_file" "deployment_values" {
   count = "${var.remote_chart == "true" ? 0 : 1 }"
   content  = "${trimspace(data.template_file.chart_values_template.rendered)}"
-  filename = "charts/.cache/${var.deployment_name}-values.yaml"
+  filename = "${path.module}/values.yaml"
+
+  
 }
 
 locals {
