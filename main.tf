@@ -36,11 +36,16 @@ data "template_file" "chart_values_template" {
   vars = "${local.template_all_values}"
 }
 
-## local_file.deployment_values will create the file output path.module/.cache/values.yaml
-resource "local_file" "deployment_values" {
-  count = "${var.remote_chart == "true" ? 0 : 1 }"
-  content  = "${trimspace(data.template_file.chart_values_template.rendered)}"
-  filename = "charts/.cache/${var.deployment_name}-values.yaml"
+## This resource was disabled and moved to output please see the ticket
+## https://github.com/fuchicorp/terraform-helm-chart/issues/21
+# resource "local_file" "deployment_values" {
+#   content  = "${trimspace(data.template_file.chart_values_template.rendered)}"
+#   filename = "${path.module}/${var.deployment_name}-values.yaml"
+# }
+
+output "deployment_values" {
+  value = "${data.template_file.chart_values_template.0.rendered}"
+  description = "This output is for storing values.yaml"
 }
 
 locals {
@@ -58,7 +63,7 @@ resource "helm_release" "helm_deployment" {
   version       = "${var.release_version}"
 
   values = [
-    "${local_file.deployment_values.content}",
+    "${trimspace(data.template_file.chart_values_template.rendered)}",
   ]
 }
 
