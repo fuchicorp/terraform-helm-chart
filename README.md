@@ -89,7 +89,7 @@ For more info, please see the [variables file](variables.tf).
 | `deployment_endpoint` | Ingress endpoint `example.fuchicorp.com` | `(Required)` | `domain/string` |
 | `deployment_path` | path for helm chart on local | `(Required)` | `string` |
 | `release_version` | Specify the exact chart version to install. | `(Required)` | `string` |
-| `enabled` | Specify if you want to deploy the enabled to `"true"` default value is `"false"`| `(Optional)` | `bool` |
+| `enabled` | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool` |
 | `values` | Name of the values.yaml file | `(Optional)` | `string` |
 | `template_custom_vars` | Template custom veriables you can modify variables by parsting the `template_custom_vars` | `(Optional)` | `map` |
 | `env_vars` | Environment veriable for the containers takes map | `(Optional)` | `map` |
