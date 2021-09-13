@@ -46,7 +46,7 @@ variable "release_version" {
 }
 
 variable "enabled" {
-  default = "false"
+  default = "true"
 }
 
 variable "values" {
