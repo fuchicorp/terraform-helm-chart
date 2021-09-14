@@ -54,7 +54,6 @@ module "helm_deploy" {
   deployment_endpoint    = "example.fuchicorp.com"
   deployment_path        = "example"
   release_version        = "0.0.4"                 
-
 }
 EOF
 ```
@@ -169,7 +168,6 @@ Next create an simple output file named `output.tf` and copy and paste the follo
 output "success" {
   value = "${module.helm_remote_deployment.success_output}"
 }
-
 ```
 
                Developed by FuchiCorp DevOps team, Enjoy using it. 
