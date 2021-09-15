@@ -52,7 +52,8 @@ module "helm_deploy" {
   deployment_name        = "example-deployment"
   deployment_environment = "dev"
   deployment_endpoint    = "example.fuchicorp.com"
-  deployment_path        = "example"
+  deployment_path        = "./charts/example"
+  enabled                = "true"
   release_version        = "0.0.4"                 
 }
 EOF
@@ -106,7 +107,7 @@ module "helm_deploy" {
   deployment_name        = "artemis-deployment"
   deployment_environment = "dev"
   deployment_endpoint    = "artemis.fuchicorp.com"
-  deployment_path        = "artemis"
+  deployment_path        = "./charts/artemis"
   release_version        = "0.0.4"                  
   enabled                = "true"
   template_custom_vars   = {
@@ -151,23 +152,5 @@ Please follow the steps to configure `module.tf` and `output.tf`
 ./values.yaml 
 ```
 `module.tf` file should look like this
-```
-module "helm_remote_deployment" {
-  source = "fuchicorp/chart/helm"
-  deployment_name        = "example-deployment"     # The name of the deployment
-  deployment_environment = "dev"                    # Name of the namespace
-  deployment_endpoint    = "example.fuchicorp.com"  # Ingress endpoint
-  deployment_path        = "stable/jenkins"         # Path for helm chart
-  release_version        = "0.0.4"                  # Chart version
-  enabled                = "true"                   # Deploy resource
-  values                 = "values.yaml"            # your values.yaml file 
-}
-```
-Next create an simple output file named `output.tf` and copy and paste the following:
-```
-output "success" {
-  value = "${module.helm_remote_deployment.success_output}"
-}
-```
 
                Developed by FuchiCorp DevOps team, Enjoy using it. 
