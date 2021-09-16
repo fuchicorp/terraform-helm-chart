@@ -12,8 +12,6 @@ This terraform module will help you deploy the helm charts on local.
 
 - [Custom Values](#custom-variable-deployment)
 
-  
-
 ## Requirements
 
 Terraform >= 0.11.7
@@ -54,9 +52,9 @@ module "helm_deploy" {
   deployment_name        = "example-deployment"
   deployment_environment = "dev"
   deployment_endpoint    = "example.fuchicorp.com"
-  deployment_path        = "example"
+  deployment_path        = "./charts/example"
+  enabled                = "true"
   release_version        = "0.0.4"                 
-
 }
 EOF
 ```
@@ -68,20 +66,17 @@ output "success" {
 
 ```
 
-follow the file path 
-
+follow the file path:
 ```yaml
 ./module.tf
 ./output.tf
 ./charts/
-    /example ## Your chart location 
-      /Chart.yaml
-      /charts
-      /templates
-      /values.yaml
+  /example ## Your chart location 
+    /Chart.yaml
+    /charts
+    /templates
+    /values.yaml
 ```
-
-
 
 ## Variables
 
@@ -94,7 +89,7 @@ For more info, please see the [variables file](variables.tf).
 | `deployment_endpoint` | Ingress endpoint `example.fuchicorp.com` | `(Required)` | `domain/string` |
 | `deployment_path` | path for helm chart on local | `(Required)` | `string` |
 | `release_version` | Specify the exact chart version to install. | `(Required)` | `string` |
-| `remote_chart` | Specify if you want to deploy the remote chart to `"True"` default value is `"False"`| `(Optional)` | `bool` |
+| `enabled` | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool` |
 | `values` | Name of the values.yaml file | `(Optional)` | `string` |
 | `template_custom_vars` | Template custom veriables you can modify variables by parsting the `template_custom_vars` | `(Optional)` | `map` |
 | `env_vars` | Environment veriable for the containers takes map | `(Optional)` | `map` |
@@ -108,15 +103,14 @@ For more info, please see the [variables file](variables.tf).
 ```
 module "helm_deploy" {
   # source = "git::https://github.com/fuchicorp/helm-deploy.git"
-  source  = "fuchicorp/chart/helm"
+  source                 = "fuchicorp/chart/helm"
   deployment_name        = "artemis-deployment"
   deployment_environment = "dev"
   deployment_endpoint    = "artemis.fuchicorp.com"
-  deployment_path        = "artemis"
+  deployment_path        = "./charts/artemis"
   release_version        = "0.0.4"                  
-
-
-  template_custom_vars = {
+  enabled                = "true"
+  template_custom_vars   = {
     deployment_image = "nginx"
   }
 }
@@ -141,41 +135,5 @@ Output file will be:
 ```
 
 You can see the `repository` replaced to the right value
-
-## If you would like to deploy remote chart
-
-REMOTE CHARTS are available on versions `"0.0.4"` and up.
-
-In order to deploy remote charts, you should have your own `values.yaml` file,
-
-`module.tf` and `output.tf` in the same folder.  
-
-Please follow the steps to configure `module.tf` and `output.tf`
-
-```yaml
-./module.tf  
-./output.tf
-./values.yaml 
-```
-`module.tf` file should look like this
-```
-module "helm_remote_deployment" {
-  source = "fuchicorp/chart/helm"
-  deployment_name        = "example-deployment"     ## The name of the deployment
-  deployment_environment = "dev"                    ## Name of the namespace
-  deployment_endpoint    = "example.fuchicorp.com"  ## Ingress endpoint
-  deployment_path        = "stable/jenkins"         ## Path for helm chart
-  release_version        = "0.0.4"                  ## Chart version
-  remote_chart           = "true"
-  values                 = "values.yaml"            ## your values.yaml file 
-}
-```
-Next create an simple output file named `output.tf` and copy and paste the following:
-```
-output "success" {
-  value = "${module.helm_remote_deployment.success_output}"
-}
-
-```
 
                Developed by FuchiCorp DevOps team, Enjoy using it. 
