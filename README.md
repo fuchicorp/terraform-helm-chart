@@ -136,21 +136,4 @@ Output file will be:
 
 You can see the `repository` replaced to the right value
 
-## If you would like to deploy remote chart
-
-REMOTE CHARTS are available on versions `"0.0.4"` and up.
-
-In order to deploy remote charts, you should have your own `values.yaml` file,
-
-`module.tf` and `output.tf` in the same folder.  
-
-Please follow the steps to configure `module.tf` and `output.tf`
-
-```yaml
-./module.tf  
-./output.tf
-./values.yaml 
-```
-`module.tf` file should look like this
-
                Developed by FuchiCorp DevOps team, Enjoy using it. 
