@@ -124,7 +124,7 @@ Every key and value you define inside `template_custom_vars` will be used for yo
 In this case  --> `deployment_image` value will be replaced inside the file to `nginx` 
 
 ```
-$ cat charts/jenkins/values.yaml| grep repository
+$ cat jenkins/jenkins/values.yaml | grep repository   
   repository: ${deployment_image}
 ```
 
