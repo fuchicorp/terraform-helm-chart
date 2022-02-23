@@ -124,15 +124,14 @@ Every key and value you define inside `template_custom_vars` will be used for yo
 In this case  --> `deployment_image` value will be replaced inside the file to `nginx` 
 
 ```
-╭─ fs ~/deployments/terraform/
-╰─(‹master*› ) cat charts/jenkins/values.yaml| grep repository
+$ cat charts/jenkins/values.yaml| grep repository
   repository: ${deployment_image}
 ```
 
 Output file will be: 
 
 ```
-╭─ fs ~/Projects/fuchicorp-projects/helm-deploy
+╭─ fs ~/deployments/terraform/
 ╰─(‹master*› ) cat .cache/values.yaml | grep reposit
   repository: nginx
 ```
