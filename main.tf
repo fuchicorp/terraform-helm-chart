@@ -71,7 +71,7 @@ resource "helm_release" "helm_local_deployment" {
 # template_file.chart_values_template actual values.yaml file from charts
 data "template_file" "remote_chart_values_template" {
   count    = "${var.enabled == "true" && var.remote_chart == "true" ? 1 : 0}"
-  template = "${file("${var.override-values}")}"
+  template = "${file("${var.override-values-file}")}"
   vars     = "${local.template_all_values}"
 }
 
