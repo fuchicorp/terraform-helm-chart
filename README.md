@@ -99,6 +99,7 @@ For more info, please see the [variables file](variables.tf).
 
 
 ## Custom variable deployment 
+In a case of local chart deployment, we can always use `template_custom_vars` to override some deployments specs
 
 ```
 module "helm_deploy" {
@@ -111,7 +112,7 @@ module "helm_deploy" {
   deployment_path        = "jenkins/jenkins"
   release_version        = "2.19.0"
   override-values-file   = "override-values.yaml"
-  remote_chart           = "true"
+  remote_chart           = "false"
   enabled                = "true"
   template_custom_vars   = {
     deployment_image = "nginx"
