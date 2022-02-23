@@ -1,3 +1,8 @@
+# Endpoint for the application
+variable "deployment_endpoint" {
+  description = "Endpoint for the application"
+}
+
 # The name of the deployment
 variable "deployment_name" {
   description = "The name of the deployment"
@@ -13,9 +18,23 @@ variable "deployment_path" {
   description = "Chart location or chart name <stable/example>"
 }
 
-# Endpoint for the application
-variable "deployment_endpoint" {
-  description = "Endpoint for the application"
+variable "release_version" {
+  description = "(Required) Specify the exact chart version to install"
+  default     = " 0.1.0"
+}
+
+# The name of the override-values-file file
+variable "override-values-file" {
+  default = "override-values.yaml"
+  description = "file to be created to override and customize default remote helm chart values.yaml"
+}
+
+variable "remote_chart" {
+  default = "false"
+}
+
+variable "enabled" {
+  default = "true"
 }
 
 variable "template_custom_vars" {
@@ -40,21 +59,8 @@ variable "recreate_pods" {
   default = false
 }
 
-variable "release_version" {
-  description = "(Required) Specify the exact chart version to install"
-  default     = " 0.1.0"
-}
-
-variable "enabled" {
-  default = "true"
-}
-
 variable "values" {
   default = "values.yaml"
-}
-
-variable "remote_chart" {
-  default = "false"
 }
 
 variable "overide_values" {
@@ -62,9 +68,4 @@ variable "overide_values" {
   default = [
     ""
   ]
-}
-
-# The name of the override-values file
-variable "override-values" {
-  default = "override-values.yaml"
 }
