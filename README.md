@@ -138,5 +138,6 @@ $ cat .cache/values.yaml | grep reposit
 You can see the `repository` replaced to the overritten value `nginx`
 
 ```
-Developed by FuchiCorp DevOps team, Enjoy using it. 
+Thanks for using our chart,
+Developed by FuchiCorp DevOps team, Enjoy using it! 
 ```
