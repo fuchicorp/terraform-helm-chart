@@ -124,8 +124,8 @@ Every key and value you define inside `template_custom_vars` will be used for yo
 In this case  --> `deployment_image` value will be replaced inside the file to `nginx` 
 
 ```
-╭─ fs ~/Projects/fuchicorp-projects/terraform-modules/deploy-testing
-╰─(‹master*› ) cat charts/artemis/values.yaml| grep repository
+╭─ fs ~/deployments/terraform/
+╰─(‹master*› ) cat charts/jenkins/values.yaml| grep repository
   repository: ${deployment_image}
 ```
 
