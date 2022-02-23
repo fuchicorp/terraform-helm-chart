@@ -131,8 +131,7 @@ $ cat charts/jenkins/values.yaml| grep repository
 Output file will be: 
 
 ```
-╭─ fs ~/deployments/terraform/
-╰─(‹master*› ) cat .cache/values.yaml | grep reposit
+$ cat .cache/values.yaml | grep reposit
   repository: nginx
 ```
 
