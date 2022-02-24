@@ -47,11 +47,11 @@ This terraform module will help you deploy the helm charts on local.
       deployment_endpoint    = "example.domain.com"
       deployment_name        = "example-deployment-name"
       deployment_environment = "dev"
-      deployment_path        = "./charts/example"      
-      release_version = "2.19.0"
-      override-values-file = "override-values.yaml"
-      remote_chart = "true"
-      enabled = "true"
+      deployment_path        = "example/example"      
+      release_version        = "2.19.0"
+      override-values-file   = "override-values.yaml"
+      remote_chart           = "true"
+      enabled                = "true"
     }
     EOF
     ```
@@ -116,7 +116,7 @@ For more info, please see the [variables file](variables.tf).
     }
     EOF
     ```
-
+And have a 
 2. In a case of local chart deployment, we can always use `template_custom_vars` to override some deployments specs
 
 ```
