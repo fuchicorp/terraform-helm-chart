@@ -116,29 +116,43 @@ For more info, please see the [variables file](variables.tf).
     }
     EOF
     ```
-And have a 
+    And have your customized `override-values.yaml` file as the following example file 
+
+    ```
+    cat <<EOF >override-values.yaml
+    master:
+      ingress:
+          enabled: true
+          apiVersion: "extensions/v1"
+          hostName: "jenkins.internal.example.com"
+          annotations:
+              kubernetes.io/ingress.class: "internal"
+
+    EOF
+    ```
+
 2. In a case of local chart deployment, we can always use `template_custom_vars` to override some deployments specs
 
-```
-cat <<EOF >module.tf
-module "helm_deploy" {
-  # source = "git::https://github.com/fuchicorp/helm-deploy.git"
-  source                 = "fuchicorp/chart/helm"
-  version                = "0.0.10"
-  deployment_endpoint    = "jenkins.fuchicorp.com"
-  deployment_name        = "test-jenkins"
-  deployment_environment = "dev"
-  deployment_path        = "jenkins/jenkins"
-  release_version        = "2.19.0"
-  override-values-file   = "override-values.yaml"
-  remote_chart           = "false"
-  enabled                = "true"
-  template_custom_vars   = {
-    deployment_image = "nginx"
-  }
-}
-EOF
-```
+    ```
+    cat <<EOF >module.tf
+    module "helm_deploy" {
+      # source = "git::https://github.com/fuchicorp/helm-deploy.git"
+      source                 = "fuchicorp/chart/helm"
+      version                = "0.0.10"
+      deployment_endpoint    = "jenkins.fuchicorp.com"
+      deployment_name        = "test-jenkins"
+      deployment_environment = "dev"
+      deployment_path        = "jenkins/jenkins"
+      release_version        = "2.19.0"
+      override-values-file   = "override-values.yaml"
+      remote_chart           = "false"
+      enabled                = "true"
+      template_custom_vars   = {
+        deployment_image = "nginx"
+      }
+    }
+    EOF
+    ```
 
 Every key and value you define inside `template_custom_vars` will be used for your `values.yaml`. 
 In this case  --> `deployment_image` value will be replaced inside the file to `nginx` 
