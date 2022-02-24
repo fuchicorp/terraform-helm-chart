@@ -99,9 +99,28 @@ For more info, please see the [variables file](variables.tf).
 
 
 ## Custom variable deployment 
-In a case of local chart deployment, we can always use `template_custom_vars` to override some deployments specs
+1. In a case of remote chart deployment, you can follow the above instruction and use the `module.tf` as follow:
+    ```
+    cat <<EOF >module.tf
+    module "helm_deploy" {
+      source = "fuchicorp/chart/helm"
+      version = "0.0.10"
+      deployment_endpoint    = "jenkins.fuchicorp.com"
+      deployment_name        = "test-jenkins"
+      deployment_environment = "dev"
+      deployment_path        = "jenkins/jenkins"   
+      release_version        = "2.19.0"
+      override-values-file   = "override-values.yaml"
+      remote_chart           = "true"
+      enabled                = "true"
+    }
+    EOF
+    ```
+
+2. In a case of local chart deployment, we can always use `template_custom_vars` to override some deployments specs
 
 ```
+cat <<EOF >module.tf
 module "helm_deploy" {
   # source = "git::https://github.com/fuchicorp/helm-deploy.git"
   source                 = "fuchicorp/chart/helm"
@@ -118,6 +137,7 @@ module "helm_deploy" {
     deployment_image = "nginx"
   }
 }
+EOF
 ```
 
 Every key and value you define inside `template_custom_vars` will be used for your `values.yaml`. 
