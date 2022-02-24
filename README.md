@@ -42,8 +42,8 @@ This terraform module will help you deploy the helm charts on local.
     ```
     cat <<EOF >module.tf
     module "helm_deploy" {
-      source = "fuchicorp/chart/helm"
-      version = "0.0.10"
+      source                 = "fuchicorp/chart/helm"
+      version                = "0.0.10"
       deployment_endpoint    = "example.domain.com"
       deployment_name        = "example-deployment-name"
       deployment_environment = "dev"
@@ -55,7 +55,9 @@ This terraform module will help you deploy the helm charts on local.
     }
     EOF
     ```
-4. Create a simple output file named `output.tf` and copy and paste the following:
+4. Create your custom override-values-file named `override-values.yaml` or as you named it in the module.
+
+5. Create a simple output file named `output.tf` and copy and paste the following:
     ```
     output "success" {
       value = "${module.helm_deploy.success_output}"
