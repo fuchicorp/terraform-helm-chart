@@ -25,7 +25,7 @@ variable "release_version" {
 
 # The name of the override-values-file file
 variable "override-values-file" {
-  default = "override-values.yaml"
+  default     = "override-values.yaml"
   description = "file to be created to override and customize default remote helm chart values.yaml"
 }
 
@@ -65,7 +65,8 @@ variable "values" {
 
 variable "overide_values" {
   type = "list"
+
   default = [
-    ""
+    "",
   ]
 }
