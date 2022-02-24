@@ -3,6 +3,7 @@ locals {
     # Deployment endpoint for ingress
     deployment_endpoint = "${lower(var.deployment_endpoint)}"
 
+# "
     # <deployment_name> for backend.tf and also release name
     deployment_name = "${lower(var.deployment_name)}"
 
