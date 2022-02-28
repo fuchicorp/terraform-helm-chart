@@ -33,16 +33,9 @@ data "template_file" "env_vars" {
 # template_file.chart_values_template actual values.yaml file from charts
 data "template_file" "local_chart_values_template" {
   count    = "${var.enabled == "true" && var.remote_chart == "false" ? 1 : 0}"
-  template = "${file("${var.deployment_path}/values.yaml")}"
+  template = "${file("${var.deployment_path}/${var.values}")}"
   vars     = "${local.template_all_values}"
 }
-
-# This resource was disabled and moved to output please see the ticket
-# https://github.com/fuchicorp/terraform-helm-chart/issues/21
-# resource "local_file" "deployment_values" {
-#   content  = "${trimspace(data.template_file.local_chart_values_template.0.rendered)}"
-#   filename = "${path.module}/${var.deployment_name}-values.yaml"
-# }
 
 output "deployment_values" {
   value       = "${data.template_file.local_chart_values_template.*.rendered}"
@@ -68,14 +61,6 @@ resource "helm_release" "helm_local_deployment" {
   ]
 }
 
-
-# template_file.chart_values_template actual values.yaml file from charts
-data "template_file" "remote_chart_values_template" {
-  count    = "${var.enabled == "true" && var.remote_chart == "true" ? 1 : 0}"
-  template = "${file("${var.override-values-file}")}"
-  vars     = "${local.template_all_values}"
-}
-
 resource "helm_release" "helm_remote_deployment" {
   count         = "${var.enabled == "true" && var.remote_chart == "true" ? 1 : 0}"
   name          = "${var.deployment_name}-${var.deployment_environment}"
@@ -85,7 +70,7 @@ resource "helm_release" "helm_remote_deployment" {
   recreate_pods = "${local.recreate_pods}"
   version       = "${var.release_version}"
 
-  values = [
-    "${trimspace(data.template_file.remote_chart_values_template.rendered)}",
+  values = [ 
+    "${var.remote_override_values}" 
   ]
 }
