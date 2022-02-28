@@ -19,11 +19,6 @@ variable "release_version" {
   default     = "0.1.0"
 }
 
-variable "override_values_file" {
-  default     = "override-values.yaml"
-  description = "-(Optional) file to be created to override and customize default remote helm chart values.yaml"
-}
-
 variable "remote_chart" {
   default = "false"
   description = "-(Optional) For the remote charts set to <true>"
