@@ -1,45 +1,43 @@
-# Endpoint for the application
 variable "deployment_endpoint" {
-  description = "Endpoint for the application"
+  description = "-(Required) Endpoint for the application"
 }
 
-# The name of the deployment
 variable "deployment_name" {
-  description = "The name of the deployment"
+  description = "-(Required) The name of the deployment"
 }
 
-# The name of the environment
 variable "deployment_environment" {
-  description = "The name of the environment"
+  description = "-(Required) The name of the environment"
 }
 
-# Chart location or chart name
 variable "deployment_path" {
-  description = "Chart location or chart name <stable/example>"
+  description = "-(Required) Chart location or chart name <stable/example>"
 }
 
 variable "release_version" {
-  description = "(Required) Specify the exact chart version to install"
-  default     = " 0.1.0"
+  description = "-(Optional) Specify the exact chart version to install"
+  default     = "0.1.0"
 }
 
-# The name of the override-values-file file
-variable "override-values-file" {
+variable "override_values_file" {
   default     = "override-values.yaml"
-  description = "file to be created to override and customize default remote helm chart values.yaml"
+  description = "-(Optional) file to be created to override and customize default remote helm chart values.yaml"
 }
 
 variable "remote_chart" {
   default = "false"
+  description = "-(Optional) For the remote charts set to <true>"
 }
 
 variable "enabled" {
   default = "true"
+  description = "-(Optional) deployment can be disabled or enabled by using this bool!"
 }
 
 variable "template_custom_vars" {
   type    = "map"
   default = {}
+  description = "-(Optional) Local chart replace variables from values.yaml"
 }
 
 variable "env_vars" {
@@ -61,12 +59,10 @@ variable "recreate_pods" {
 
 variable "values" {
   default = "values.yaml"
+  description = "-(Optional) Local chart <values.yaml> location"
 }
 
-variable "overide_values" {
-  type = "list"
-
-  default = [
-    "",
-  ]
+variable "remote_override_values" {
+  default = ""
+  description = "-(Optional)"
 }
