@@ -99,7 +99,7 @@ This terraform module will help you deploy the helm charts on local.
 
 ## Variables
 
-For more info, please see the [variables file](variables.tf).
+For more info, please see the [variables file](https://github.com/fuchicorp/terraform-helm-chart/blob/master/variables.tf).
 
 | Variable                 | Description                                                                                 | Default      | Type            |
 | :----------------------- | :------------------------------------------------------------------------------------------ | :----------: | :-------------: |
@@ -108,7 +108,6 @@ For more info, please see the [variables file](variables.tf).
 | `deployment_environment` | Name of the namespace                                                                       | `(Required)` | `string`        |
 | `deployment_path`        | path for helm chart on local                                                                | `(Required)` | `string`        |
 | `release_version`        | Specify the exact chart version to install.                                                 | `(Optional)` | `string`        |
-| `override-values-file`   | Specify the name of the file to override default `values.yaml file`                         | `(Optional)` | `string`        |
 | `remote_override_values` | Specify the name of the file to override default `values.yaml file`                         | `(Optional)` | `string`        |
 | `remote_chart`           | Specify whether to deploy remote_chart to `"true"` or `"false"` default value is `"false"`  | `(Optional)` | `bool`          |
 | `enabled`                | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool`          |
