@@ -103,7 +103,7 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 
 | Variable                 | Description                                                                                 | Default      | Type            |
 | :----------------------- | :------------------------------------------------------------------------------------------ | :----------: | :-------------: |
-| `deployment_endpoint`    | Ingress endpoint `example.fuchicorp.com`                                                    | `(Required)` | `domain/string` |
+| `deployment_endpoint`    | Ingress endpoint `example.fuchicorp.com`                                                    | `(Optional)` | `domain/string` |
 | `deployment_name`        | The name of the deployment for helm release                                                 | `(Required)` | `string`        |
 | `deployment_environment` | Name of the namespace                                                                       | `(Required)` | `string`        |
 | `deployment_path`        | path for helm chart on local                                                                | `(Required)` | `string`        |
@@ -128,7 +128,6 @@ In a case of remote chart deployment, you can follow the above instruction and u
   module "helm_deploy_remote" {
     source                 = "fuchicorp/chart/helm"
     version                = "0.0.10"
-    deployment_endpoint    = "grafana.fuchicorp.com"
     deployment_name        = "grafana"
     deployment_environment = "dev"
     deployment_path        = "grafana/grafana"
