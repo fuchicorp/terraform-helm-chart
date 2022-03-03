@@ -1,5 +1,6 @@
 variable "deployment_endpoint" {
-  description = "-(Required) Endpoint for the application"
+  description = "-(Optional) Endpoint for the application"
+  default     = "example.local"
 }
 
 variable "deployment_name" {
