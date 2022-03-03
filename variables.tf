@@ -1,55 +1,63 @@
-# The name of the deployment
-variable "deployment_name" {
-  description = "The name of the deployment"
-}
-
-# The name of the environment
-variable "deployment_environment" {
-  description = "The name of the environment"
-}
-
-# Chart location or chart name
-variable "deployment_path" {
-  description = "Chart location or chart name <stable/example>"
-}
-
-# Endpoint for the application
 variable "deployment_endpoint" {
-  description = "Endpoint for the application"
+  description = "-(Required) Endpoint for the application"
 }
 
-variable "template_custom_vars" {
-  type        = "map"
-  default     = {}
+variable "deployment_name" {
+  description = "-(Required) The name of the deployment"
 }
 
-variable "env_vars" {
-  type        = "map"
-  default     = {}
+variable "deployment_environment" {
+  description = "-(Required) The name of the environment"
 }
 
-variable "trigger" {
-  default     = "UUID"
-}
-
-variable "timeout" {
-  default     = "400"
-}
-
-variable "recreate_pods" {
-  default     = false
+variable "deployment_path" {
+  description = "-(Required) Chart location or chart name <stable/example>"
 }
 
 variable "release_version" {
-  description = "(Required) Specify the exact chart version to install"
-  default     = " 0.1.0"
+  description = "-(Optional) Specify the exact chart version to install"
+  default     = "0.1.0"
+}
 
+variable "remote_chart" {
+  default = "false"
+  description = "-(Optional) For the remote charts set to <true>"
 }
 
 variable "enabled" {
-  default     = "true"
+  default = "true"
+  description = "-(Optional) deployment can be disabled or enabled by using this bool!"
+}
+
+variable "template_custom_vars" {
+  type    = "map"
+  default = {}
+  description = "-(Optional) Local chart replace variables from values.yaml"
+}
+
+variable "env_vars" {
+  type    = "map"
+  default = {}
+}
+
+variable "trigger" {
+  default = "UUID"
+}
+
+variable "timeout" {
+  default = "400"
+}
+
+variable "recreate_pods" {
+  default = false
 }
 
 variable "values" {
-  default     = "values.yaml"
+  default = "values.yaml"
+  description = "-(Optional) Local chart <values.yaml> location"
+}
+
+variable "remote_override_values" {
+  default = ""
+  description = "-(Optional)"
 }

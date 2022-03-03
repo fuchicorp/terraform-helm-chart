@@ -37,4 +37,3 @@ output "success_output" {
 
   EOF
 }
-
