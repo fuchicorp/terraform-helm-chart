@@ -50,7 +50,7 @@ This terraform module will help you deploy the helm charts on local.
 2. Create `module.tf` to call the module on terraform registry, then customize it under data section by stating your custom values as your chart needed.
 
     ```
-    cat <<EOF >module.tf
+    cat <<-EOF >module.tf
     module "helm_deploy" {
       source                 = "fuchicorp/chart/helm"
       version                = "0.0.10"
@@ -65,14 +65,13 @@ This terraform module will help you deploy the helm charts on local.
     }
 
     data "template_file" "deployment_values" {
-      template = <<EOF
+      template = <<-EOF
 
     #put here your custom values like so:
     replicas: 2
     
     EOF
     }
-
     EOF
     ```
 
@@ -122,7 +121,7 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 In a case of remote chart deployment, you can follow the above instruction and use the `module.tf` as follow:
 
 ```
-cat <<EOF >module.tf
+cat <<-EOF >module.tf
 
 module "helm_deploy_remote" {
   source                 = "fuchicorp/chart/helm"
@@ -137,11 +136,10 @@ module "helm_deploy_remote" {
 }
 
 data "template_file" "deployment_values" {
-  template = <<EOF
+  template = <<-EOF
 replicas: 4
 EOF
 }
-
 EOF
 ```
     
@@ -149,7 +147,7 @@ EOF
 In a case of local chart deployment, you can follow the above instruction and use the `module.tf` as follow: <br>
 
 ```
-cat <<EOF >module.tf
+cat <<-EOF >module.tf
 
 module "helm_deploy_local" {
   # source = "git::https://github.com/fuchicorp/helm-deploy.git"
