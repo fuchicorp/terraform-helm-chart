@@ -154,6 +154,7 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 | `timeout`                | If you would like to increase the timeout                                                   | `(Optional)` | `number`        |
 | `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |       
 | `values`                 | Name of the values.yaml file                                                                | `(Optional)` | `string`        |
+
 <br><br>
 ## Contribute
 Request a feature at: https://github.com/fuchicorp/terraform-helm-chart/issues
