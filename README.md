@@ -6,11 +6,11 @@ This terraform module will help you deploy the helm charts on local.
 
 - [Usage](#usage)
 
-- [Variables](#variables)
-
 - [Custom Remote Chart Deployment](#custom-remote-chart-deployment)
 
 - [Custom Local Chart Deployment](#custom-local-chart-deployment)
+
+- [Variables](#variables)
 
 ## Requirements
 1. Make sure that you have `kubectl` installed and you have configured your `~/.kube/config` 
@@ -82,27 +82,6 @@ Follow the file path: <br>
     /values.yaml
 ```
 
-
-## Variables
-
-For more info, please see the [variables file](https://github.com/fuchicorp/terraform-helm-chart/blob/master/variables.tf).
-
-| Variable                 | Description                                                                                 | Default      | Type            |
-| :----------------------- | :------------------------------------------------------------------------------------------ | :----------: | :-------------: |
-| `deployment_endpoint`    | Ingress endpoint `example.fuchicorp.com`                                                    | `(Optional)` | `domain/string` |
-| `deployment_name`        | The name of the deployment for helm release                                                 | `(Required)` | `string`        |
-| `deployment_environment` | Name of the namespace                                                                       | `(Required)` | `string`        |
-| `deployment_path`        | path for helm chart on local                                                                | `(Required)` | `string`        |
-| `release_version`        | Specify the exact chart version to install.                                                 | `(Optional)` | `string`        |
-| `remote_override_values` | Specify the name of the file to override default `values.yaml file`                         | `(Optional)` | `string`        |
-| `remote_chart`           | Specify whether to deploy remote_chart to `"true"` or `"false"` default value is `"false"`  | `(Optional)` | `bool`          |
-| `enabled`                | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool`          |
-| `template_custom_vars`   | Template custom veriables you can modify variables by parsting the `template_custom_vars`   | `(Optional)` | `map`           |
-| `env_vars`               | Environment veriable for the containers takes map                                           | `(Optional)` | `map`           |
-| `timeout`                | If you would like to increase the timeout                                                   | `(Optional)` | `number`        |
-| `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |       
-| `values`                 | Name of the values.yaml file                                                                | `(Optional)` | `string`        |
-
 ## Custom Remote Chart Deployment 
 In a case of remote chart deployment, you can follow the above instruction and use the `module.tf` as follow:
 
@@ -154,6 +133,32 @@ module "helm_deploy_local" {
   enabled                = "true"
 }
 ```
+
+
+## Variables
+
+For more info, please see the [variables file](https://github.com/fuchicorp/terraform-helm-chart/blob/master/variables.tf).
+
+| Variable                 | Description                                                                                 | Default      | Type            |
+| :----------------------- | :------------------------------------------------------------------------------------------ | :----------: | :-------------: |
+| `deployment_endpoint`    | Ingress endpoint `example.fuchicorp.com`                                                    | `(Optional)` | `domain/string` |
+| `deployment_name`        | The name of the deployment for helm release                                                 | `(Required)` | `string`        |
+| `deployment_environment` | Name of the namespace                                                                       | `(Required)` | `string`        |
+| `deployment_path`        | path for helm chart on local                                                                | `(Required)` | `string`        |
+| `release_version`        | Specify the exact chart version to install.                                                 | `(Optional)` | `string`        |
+| `remote_override_values` | Specify the name of the file to override default `values.yaml file`                         | `(Optional)` | `string`        |
+| `remote_chart`           | Specify whether to deploy remote_chart to `"true"` or `"false"` default value is `"false"`  | `(Optional)` | `bool`          |
+| `enabled`                | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool`          |
+| `template_custom_vars`   | Template custom veriables you can modify variables by parsting the `template_custom_vars`   | `(Optional)` | `map`           |
+| `env_vars`               | Environment veriable for the containers takes map                                           | `(Optional)` | `map`           |
+| `timeout`                | If you would like to increase the timeout                                                   | `(Optional)` | `number`        |
+| `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |       
+| `values`                 | Name of the values.yaml file                                                                | `(Optional)` | `string`        |
+<br><br>
+## Contribute
+Request a feature at: https://github.com/fuchicorp/terraform-helm-chart/issues
+<br> Fork and create PR
+<br><br>
 
 ## Thanks for using our chart, Enjoy using it! 
 
