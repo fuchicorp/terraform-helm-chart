@@ -62,3 +62,9 @@ variable "remote_override_values" {
   default = ""
   description = "-(Optional)"
 }
+
+variable "chart_repo" {
+  default = ""
+  description = "-(Optional)"
+}
+

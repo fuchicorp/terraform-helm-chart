@@ -69,6 +69,7 @@ resource "helm_release" "helm_remote_deployment" {
   timeout       = "${local.timeout}"
   recreate_pods = "${local.recreate_pods}"
   version       = "${var.release_version}"
+  repository    = "${var.chart_repo}"
 
   values = [ 
     "${var.remote_override_values}" 
