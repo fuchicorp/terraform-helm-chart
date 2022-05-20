@@ -31,7 +31,7 @@ cd ~/example-deployment
 
 2. Create `module.tf` to call the module on terraform registry, then customize it under data section by stating your custom values as your chart needed.
 
-```
+```hcl
 module "helm_deploy" {
   source                 = "fuchicorp/chart/helm"
   version                = "0.0.10"
@@ -52,14 +52,14 @@ EOF
 
 ```
 3. After you are done with all the custom configurations now you can go ahead do the deployment
-```
+```sh
 terraform init
 terraform apply
 ```
 ## Exmaple Remote Chart Deployment 
 In a case of remote chart deployment, you can follow the above instruction to deploy grafana 
 
-```
+```hcl
 module "helm_deploy_remote" {
   source                 = "fuchicorp/chart/helm"
   version                = "0.0.10"
@@ -81,19 +81,19 @@ EOF
 In a case of local chart deployment, 
 
 1. First you will need to create your own local helm chart, to quickly do that, run 
-```
+```sh
 mkdir -p ~/terraform/charts  
 cd ~/terraform/charts  
 ```
 Now you have base folder and good to go ahead and create your local chart
-```
+```sh
 helm create my-example-chart
 ls my-example-chart
 # Chart.yaml    charts    templates   values.yaml
 ```
 2. Then, Create `module.tf` file to call the module on terraform registry, then customize it as needed.
 
-```
+```hcl
 module "helm_deploy_local" {
   # source = "git::https://github.com/fuchicorp/helm-deploy.git"
   source                 = "fuchicorp/chart/helm"
