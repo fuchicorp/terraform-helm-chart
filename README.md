@@ -4,7 +4,7 @@ This terraform module will help you deploy the helm charts on local.
 
 - [Requirements](#Requirements)
 
-- [Usage](#usage)
+- [Usage remote chart](#usage-remote-chart)
 
 - [Custom Remote Chart Deployment](#custom-remote-chart-deployment)
 
@@ -21,106 +21,79 @@ This terraform module will help you deploy the helm charts on local.
   * Terraform >= 0.11.7
 
 
-## Usage
+## Usage remote chart
 
-1. First you will need to create your own helm chart. To quickly create helm chart, run:
-
-    ```sh
-    $ mkdir -p deployments/terraform/charts  
-    $ cd deployments/terraform
-
-    #### for remote chart deployment ####
-    find the remote charte you want to deploy then add the repo as follow:
-
-    $ helm repo add example https://example.github.io/helm-charts
-    $ helm repo update
-    ```
-2. Create `module.tf` to call the module on terraform registry, then customize it under data section by stating your custom values as your chart needed.
-
-    ```yaml
-    module "helm_deploy" {
-      source                 = "fuchicorp/chart/helm"
-      version                = "0.0.10"
-      deployment_endpoint    = "example.domain.com"
-      deployment_name        = "example-deployment-name"
-      deployment_environment = "dev"
-      deployment_path        = "example/example"      
-      release_version        = "#example chart version"
-      remote_chart           = "true"
-      enabled                = "true"
-      remote_override_values = "${data.template_file.deployment_values.rendered}"
-    }
-
-    data "template_file" "deployment_values" {
-      template = <<-EOF
-
-    #put here your custom values like so:
-    replicas: 2
-    
-    EOF
-    }
-    ```
-
-3. Create a simple output file named `output.tf` and copy and paste the following:
-
-    ```yaml
-    output "success" {
-      value = "${module.helm_deploy.success_output}"
-    }
-    ```
-
-Follow the file path: <br>
-
-```sh
-./module.tf
-./output.tf
-./charts/
-  /example ## Your chart location 
-    /Chart.yaml
-    /charts
-    /templates
-    /values.yaml
+1. First you will need to find the proper helm chart from the https://artifacthub.io/
+```
+mkdir ~/example-deployment 
+cd ~/example-deployment 
 ```
 
-## Custom Remote Chart Deployment 
-In a case of remote chart deployment, you can follow the above instruction and use the `module.tf` as follow:
+2. Create `module.tf` to call the module on terraform registry, then customize it under data section by stating your custom values as your chart needed.
 
-```yaml
+```
+module "helm_deploy" {
+  source                 = "fuchicorp/chart/helm"
+  version                = "0.0.10"
+  remote_chart           = "true"                             ## Set to true to remote chart false to local charts
+  chart_repo             = "https://github.io/helm-charts"    ## Here provide the repository url 
+  enabled                = "true"                             ## Enable to deploy the chart
+  deployment_name        = "example-deployment-name"          ## Release name in the namespace
+  deployment_environment = "dev"                              ## Kubernetes Namespace
+  deployment_path        = "example-remote-name"              ## Name of the remote chart 
+  release_version        = "#example chart version"           ## Helm chart version 
+  
+  ## Your custom values.yaml
+  remote_override_values = <<EOF
+## Put here your custom values like to override the values.yaml
+replicas: 2
+EOF 
+}
+
+```
+3. After you are done with all the custom configurations now you can go ahead do the deployment
+```
+terraform init
+terraform apply
+```
+## Exmaple Remote Chart Deployment 
+In a case of remote chart deployment, you can follow the above instruction to deploy grafana 
+
+```
 module "helm_deploy_remote" {
   source                 = "fuchicorp/chart/helm"
   version                = "0.0.10"
   deployment_name        = "grafana"
   deployment_environment = "dev"
   deployment_path        = "grafana/grafana"
+  chart_repo             = "https://grafana.github.io/helm-charts"
   enabled                = "true"
   remote_chart           = "true"
   release_version        = "6.22.0"
-  remote_override_values = "${data.template_file.deployment_values.rendered}"
-}
-
-data "template_file" "deployment_values" {
-  template = <<-EOF
+  remote_override_values = <<EOF
+## Grafana 
 replicas: 4
-EOF
+EOF 
 }
 ```
     
-## Custom Local Chart Deployment 
+## Example Local Chart Deployment 
 In a case of local chart deployment, 
-1. First you will need to create your own local helm chart, to quickly do that, run:
 
-```sh
-$ mkdir -p deployments/terraform/charts  
-$ cd deployments/terraform
-
-#### for local chart deployment ####
-$ helm create charts/example
-$ ls charts/example
-    Chart.yaml    charts    templates   values.yaml
+1. First you will need to create your own local helm chart, to quickly do that, run 
+```
+mkdir -p ~/terraform/charts  
+cd ~/terraform/charts  
+```
+Now you have base folder and good to go ahead and create your local chart
+```
+helm create my-example-chart
+ls my-example-chart
+# Chart.yaml    charts    templates   values.yaml
 ```
 2. Then, Create `module.tf` file to call the module on terraform registry, then customize it as needed.
 
-```yaml
+```
 module "helm_deploy_local" {
   # source = "git::https://github.com/fuchicorp/helm-deploy.git"
   source                 = "fuchicorp/chart/helm"
@@ -147,6 +120,7 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 | `deployment_path`        | path for helm chart on local                                                                | `(Required)` | `string`        |
 | `release_version`        | Specify the exact chart version to install.                                                 | `(Optional)` | `string`        |
 | `remote_override_values` | Specify the name of the file to override default `values.yaml file`                         | `(Optional)` | `string`        |
+| `chart_repo`             | Url of the repository for the helm charts                                                   | `(Optional)` | `string`        |
 | `remote_chart`           | Specify whether to deploy remote_chart to `"true"` or `"false"` default value is `"false"`  | `(Optional)` | `bool`          |
 | `enabled`                | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool`          |
 | `template_custom_vars`   | Template custom veriables you can modify variables by parsting the `template_custom_vars`   | `(Optional)` | `map`           |
@@ -155,15 +129,9 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 | `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |       
 | `values`                 | Name of the values.yaml file                                                                | `(Optional)` | `string`        |
 
-<br><br>
+
 ## Contribute
-Request a feature at: https://github.com/fuchicorp/terraform-helm-chart/issues
-<br> Fork and create PR
-<br><br>
+Request a feature at: https://github.com/fuchicorp/terraform-helm-chart/issues Fork and create PR
 
-## Thanks for using our chart, Enjoy using it! 
-
-```
-Developed by FuchiCorp DevOps team 🙂
-
-```
+## Owner
+This terraform module developed by FuchiCorp DevOps team. Thanks for using our chart, Enjoy using it! 

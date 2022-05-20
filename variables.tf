@@ -65,6 +65,6 @@ variable "remote_override_values" {
 
 variable "chart_repo" {
   default = ""
-  description = "-(Optional)"
+  description = "-(Optional) Provide the remote helm charts repository."
 }
 
