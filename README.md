@@ -2,7 +2,7 @@
 
 This terraform module will help you deploy the helm charts on local.
 
-- [Requirements](#Requirements)
+- [Requirements](#requirements)
 
 - [Usage remote chart](#usage-remote-chart)
 
@@ -14,7 +14,7 @@ This terraform module will help you deploy the helm charts on local.
 
 ## Requirements
 1. Make sure that you have `kubectl` installed and you have configured your `~/.kube/config` 
-2. Make sure that terraform also installed and follows Requirements
+2. Make sure that terraform also installed and follows requirements
 
   * Kubernetes  >=  v1.14.8
 
@@ -29,7 +29,7 @@ mkdir ~/example-deployment
 cd ~/example-deployment 
 ```
 
-Create `module.tf` to call the module on terraform registry, then customize it under data section by stating your custom values as your chart needed.
+Create `module.tf` to call the module on terraform registry, then customize it under the data section by stating your custom values as your chart needed.
 
 ```hcl
 module "helm_deploy" {
@@ -50,12 +50,13 @@ EOF
 }
 
 ```
-After you are done with all the custom configurations now you can go ahead do the deployment
+After you are done with all the custom configurations now you can go ahead and do the deployment
 ```sh
 terraform init && terraform apply 
 ```
-## Exmaple Remote Chart Deployment 
-In a case of remote chart deployment, you can follow the above instruction to deploy grafana 
+
+## Example Remote Chart Deployment 
+In the case of remote chart deployment, you can follow the above instruction to deploy grafana 
 
 ```hcl
 module "helm_deploy_remote" {
@@ -89,7 +90,7 @@ EOF
 }
 ```
 
-You can go ahead and create variables.tf and use them to deploy the Grafana server into your Kubernetes Cluster
+You can go ahead and create `variables.tf` and use them to deploy the Grafana server into your Kubernetes Cluster
 ```
 variable "grafana_endpoint" {
   default = "grafana.domain.com"
@@ -101,16 +102,16 @@ variable "grafana_replicas" {
 ```
     
 ## Example Local Chart Deployment 
-In this example you will learn how to use this module to deploy your local charts without packaging them. First you will need to create your own local helm chart, to quickly do that, run 
+In this example, you will learn how to use this module to deploy your local charts without packaging them. First, you will need to create your own local helm chart, to quickly do that, run 
 ```sh
 mkdir -p ~/terraform/charts
 cd ~/terraform/
 ```
-Now you have base folder and good to go ahead and create your local chart
+Now you have the base folder and good to go ahead and create your local chart
 ```sh
 helm create charts/my-example-chart
 ```
-Then, Create `module.tf` file to call the module on terraform registry, then customize it as needed.
+Create `module.tf` file to call the module on terraform registry then customize it as needed.
 
 ```hcl
 module "helm_deploy_local" {
@@ -128,7 +129,7 @@ module "helm_deploy_local" {
 }
 ```
 
-Ones you have the default local helm chart you can go ahead create and use variables from terraform inside your `values.yaml`
+Once you have the default local helm chart you can go ahead and create and use variables from terraform inside your `values.yaml`
 ```
 image:
   repository: ${deployment_image}
@@ -150,7 +151,7 @@ ingress:
     - ${deployment_endpoint}
 ```
 
-After you have everything configured now you can go ahead do the deployment
+Now its time to initialize the terraform and deploy it 
 ```
 terraform init && terraform apply 
 ```
@@ -183,4 +184,4 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 Request a feature at: https://github.com/fuchicorp/terraform-helm-chart/issues Fork and create PR
 
 ## Owner
-This terraform module developed by FuchiCorp LLC DevOps team. Thanks for using our chart, Enjoy using it! 
+This terraform module developed by the FuchiCorp LLC DevOps team. Thanks for using our chart, Enjoy using it! 
