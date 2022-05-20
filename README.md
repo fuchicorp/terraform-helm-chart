@@ -6,9 +6,9 @@ This terraform module will help you deploy the helm charts on local.
 
 - [Usage remote chart](#usage-remote-chart)
 
-- [Custom Remote Chart Deployment](#custom-remote-chart-deployment)
+- [Exmaple Remote Chart Deployment](#exmaple-remote-chart-deployment )
 
-- [Custom Local Chart Deployment](#custom-local-chart-deployment)
+- [Example Local Chart Deployment](#example-local-chart-deployment )
 
 - [Variables](#variables)
 
@@ -23,18 +23,17 @@ This terraform module will help you deploy the helm charts on local.
 
 ## Usage remote chart
 
-1. First you will need to find the proper helm chart from the https://artifacthub.io/
+First you will need to find the proper helm chart from the https://artifacthub.io/
 ```
 mkdir ~/example-deployment 
 cd ~/example-deployment 
 ```
 
-2. Create `module.tf` to call the module on terraform registry, then customize it under data section by stating your custom values as your chart needed.
+Create `module.tf` to call the module on terraform registry, then customize it under data section by stating your custom values as your chart needed.
 
 ```hcl
 module "helm_deploy" {
   source                 = "fuchicorp/chart/helm"
-  version                = "0.0.10"
   remote_chart           = "true"                             ## Set to true to remote chart false to local charts
   chart_repo             = "https://github.io/helm-charts"    ## Here provide the repository url 
   enabled                = "true"                             ## Enable to deploy the chart
@@ -51,10 +50,9 @@ EOF
 }
 
 ```
-3. After you are done with all the custom configurations now you can go ahead do the deployment
+After you are done with all the custom configurations now you can go ahead do the deployment
 ```sh
-terraform init
-terraform apply
+terraform init && terraform apply 
 ```
 ## Exmaple Remote Chart Deployment 
 In a case of remote chart deployment, you can follow the above instruction to deploy grafana 
@@ -152,6 +150,10 @@ ingress:
     - ${deployment_endpoint}
 ```
 
+After you have everything configured now you can go ahead do the deployment
+```
+terraform init && terraform apply 
+```
 
 
 
@@ -181,4 +183,4 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 Request a feature at: https://github.com/fuchicorp/terraform-helm-chart/issues Fork and create PR
 
 ## Owner
-This terraform module developed by FuchiCorp DevOps team. Thanks for using our chart, Enjoy using it! 
+This terraform module developed by FuchiCorp LLC DevOps team. Thanks for using our chart, Enjoy using it! 
