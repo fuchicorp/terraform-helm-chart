@@ -62,7 +62,6 @@ In a case of remote chart deployment, you can follow the above instruction to de
 ```hcl
 module "helm_deploy_remote" {
   source                 = "fuchicorp/chart/helm"
-  version                = "0.0.10"
   deployment_name        = "grafana"
   deployment_environment = "dev"
   deployment_path        = "grafana/grafana"
@@ -72,40 +71,88 @@ module "helm_deploy_remote" {
   release_version        = "6.22.0"
   remote_override_values = <<EOF
 ## Grafana 
-replicas: 4
+replicas: ${var.grafana_replicas}
+
+## Ingress for the grafana
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: ${var.grafana_endpoint}
+      paths:
+      - '/'
+  tls:
+  - secretName: chart-example-tls
+    hosts:
+    - ${var.grafana_endpoint}
 EOF 
+}
+```
+
+You can go ahead and create variables.tf and use them to deploy the Grafana server into your Kubernetes Cluster
+```
+variable "grafana_endpoint" {
+  default = "grafana.domain.com"
+}
+
+variable "grafana_replicas" {
+  default = 1
 }
 ```
     
 ## Example Local Chart Deployment 
-In a case of local chart deployment, 
-
-1. First you will need to create your own local helm chart, to quickly do that, run 
+In this example you will learn how to use this module to deploy your local charts without packaging them. First you will need to create your own local helm chart, to quickly do that, run 
 ```sh
-mkdir -p ~/terraform/charts  
-cd ~/terraform/charts  
+mkdir -p ~/terraform/charts
+cd ~/terraform/
 ```
 Now you have base folder and good to go ahead and create your local chart
 ```sh
-helm create my-example-chart
-ls my-example-chart
-# Chart.yaml    charts    templates   values.yaml
+helm create charts/my-example-chart
 ```
-2. Then, Create `module.tf` file to call the module on terraform registry, then customize it as needed.
+Then, Create `module.tf` file to call the module on terraform registry, then customize it as needed.
 
 ```hcl
 module "helm_deploy_local" {
-  # source = "git::https://github.com/fuchicorp/helm-deploy.git"
   source                 = "fuchicorp/chart/helm"
-  version                = "0.0.10"
-  deployment_endpoint    = "berbers.fuchicorp.com"
-  deployment_name        = "berbers"
+  deployment_name        = "my-example-chart"
   deployment_environment = "dev"
-  deployment_path        = "charts/berbers"
+  deployment_path        = "charts/my-example-chart"
   remote_chart           = "false"
   enabled                = "true"
+  template_custom_vars   = {
+    deployment_endpoint  = "my-example-chart.domain.com"
+    deployment_image     = "nginx"
+    deployment_image_tag = "latest"
+  }
 }
 ```
+
+Ones you have the default local helm chart you can go ahead create and use variables from terraform inside your `values.yaml`
+```
+image:
+  repository: ${deployment_image}
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ${deployment_image_tag}
+
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: ${deployment_endpoint}
+      paths: []
+  tls:
+  - secretName: chart-example-tls
+    hosts:
+    - ${deployment_endpoint}
+```
+
+
 
 
 ## Variables
