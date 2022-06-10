@@ -6,7 +6,9 @@ This terraform module will help you deploy the helm charts on local.
 
 - [Usage remote chart](#usage-remote-chart)
 
-- [Exmaple Remote Chart Deployment](#exmaple-remote-chart-deployment )
+- [Usage local chart](#usage-local-chart)
+
+- [Example Remote Chart Deployment](#example-remote-chart-deployment )
 
 - [Example Local Chart Deployment](#example-local-chart-deployment )
 
@@ -18,7 +20,7 @@ This terraform module will help you deploy the helm charts on local.
 
   * Kubernetes  >=  v1.14.8
 
-  * Terraform >= 0.11.7
+  * Terraform >= 0.13.7
 
 
 ## Usage remote chart

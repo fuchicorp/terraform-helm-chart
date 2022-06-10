@@ -21,23 +21,23 @@ variable "release_version" {
 }
 
 variable "remote_chart" {
-  default = "false"
+  default     = "false"
   description = "-(Optional) For the remote charts set to <true>"
 }
 
 variable "enabled" {
-  default = "true"
+  default     = "true"
   description = "-(Optional) deployment can be disabled or enabled by using this bool!"
 }
 
 variable "template_custom_vars" {
-  type    = "map"
-  default = {}
+  type        = map
+  default     = {}
   description = "-(Optional) Local chart replace variables from values.yaml"
 }
 
 variable "env_vars" {
-  type    = "map"
+  type    = map
   default = {}
 }
 
@@ -54,17 +54,17 @@ variable "recreate_pods" {
 }
 
 variable "values" {
-  default = "values.yaml"
+  default     = "values.yaml"
   description = "-(Optional) Local chart <values.yaml> location"
 }
 
 variable "remote_override_values" {
-  default = ""
+  default     = ""
   description = "-(Optional)"
 }
 
 variable "chart_repo" {
-  default = ""
+  default     = ""
   description = "-(Optional) Provide the remote helm charts repository."
 }
 

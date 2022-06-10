@@ -1,3 +1,7 @@
+terraform {
+  required_version = ">= 0.13.7"
+}
+
 # required helm provider for this module 
 provider "helm" {
   version = "1.3.2" #previous version was "0.10.6"
@@ -8,7 +12,7 @@ provider "local" {
   version = "1.4.0"
 }
 
-# We are using 2.1.2 for helm deplpoy 
+# We are using 2.1.2 for helm deploy 
 provider "template" {
   version = "2.1.2"
 }
