@@ -113,22 +113,25 @@ Now you have the base folder and good to go ahead and create your local chart
 ```sh
 helm create charts/my-example-chart
 ```
+
+## Usage local chart
 Create `module.tf` file to call the module on terraform registry then customize it as needed.
 
 ```hcl
 module "helm_deploy_local" {
   source                 = "fuchicorp/chart/helm"
-  deployment_name        = "my-example-chart"
-  deployment_environment = "dev"
-  deployment_path        = "charts/my-example-chart"
-  remote_chart           = "false"
-  enabled                = "true"
+  deployment_name        = "my-example-chart"                 ## Name of the local chart 
+  deployment_environment = "dev"                              ## Kubernetes Namespace
+  deployment_path        = "charts/my-example-chart"          ## Deployment path name
+  remote_chart           = "false"                            ## Set to false to remote chart true to local charts
+  enabled                = "true"                             ## Enable to deploy the local chart
   template_custom_vars   = {
     deployment_endpoint  = "my-example-chart.domain.com"
     deployment_image     = "nginx"
     deployment_image_tag = "latest"
   }
 }
+
 ```
 
 Once you have the default local helm chart you can go ahead and create and use variables from terraform inside your `values.yaml`
