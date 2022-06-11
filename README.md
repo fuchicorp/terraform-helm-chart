@@ -92,7 +92,7 @@ EOF
 }
 ```
 
-You can go ahead and create `variables.tf` and use them to deploy the Grafana server into your Kubernetes Cluster
+You can create `variables.tf` and use them to deploy the Grafana server into your Kubernetes Cluster
 ```
 variable "grafana_endpoint" {
   default = "grafana.domain.com"
@@ -134,7 +134,7 @@ module "helm_deploy_local" {
 
 ```
 
-Once you have the default local helm chart you can go ahead and create and use variables from terraform inside your `values.yaml`
+Once you have the default local helm chart you can now create and use the variables from terraform inside your `values.yaml`
 ```
 image:
   repository: ${deployment_image}
