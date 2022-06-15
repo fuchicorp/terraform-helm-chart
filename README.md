@@ -179,7 +179,6 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 | `remote_chart`           | Specify whether to deploy remote_chart to `"true"` or `"false"` default value is `"false"`  | `(Optional)` | `bool`          |
 | `enabled`                | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool`          |
 | `template_custom_vars`   | Template custom veriables you can modify variables by parsting the `template_custom_vars`   | `(Optional)` | `map`           |
-| `env_vars`               | Environment veriable for the containers takes map                                           | `(Optional)` | `map`           |
 | `timeout`                | If you would like to increase the timeout                                                   | `(Optional)` | `number`        |
 | `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |       
 | `values`                 | Name of the values.yaml file                                                                | `(Optional)` | `string`        |

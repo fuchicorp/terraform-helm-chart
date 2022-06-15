@@ -36,11 +36,6 @@ variable "template_custom_vars" {
   description = "-(Optional) Local chart replace variables from values.yaml"
 }
 
-variable "env_vars" {
-  type    = map
-  default = {}
-}
-
 variable "trigger" {
   default = "UUID"
 }
