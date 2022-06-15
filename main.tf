@@ -5,9 +5,6 @@ locals {
 
     # <deployment_name> for backend.tf and also release name
     deployment_name = lower(var.deployment_name)
-
-    # <env_vars> for global environment variables takes map()
-    env_vars = trimspace(join("\n", data.template_file.env_vars.*.rendered))
   }
 
   # When all requred values all deffined then also will incloude users values
@@ -16,27 +13,11 @@ locals {
   recreate_pods       = var.recreate_pods
 }
 
-# template_file.env_vars just converting to right values
-data "template_file" "env_vars" {
-  count    = length(keys(var.env_vars))
-  template = "  $${key}: \"$${value}\""
-
-  vars = {
-    key   = element(keys(var.env_vars), count.index)
-    value = element(values(var.env_vars), count.index)
-  }
-}
-
 # template_file.chart_values_template actual values.yaml file from charts
 data "template_file" "local_chart_values_template" {
   count    = var.enabled == "true" && var.remote_chart == "false" ? 1 : 0
   template = file("${var.deployment_path}/${var.values}")
   vars     = local.template_all_values
-}
-
-output "deployment_values" {
-  value       = data.template_file.local_chart_values_template.*.rendered
-  description = "This output is for storing values.yaml"
 }
 
 locals {
