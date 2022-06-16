@@ -11,7 +11,8 @@ output "success_output" {
   Deployment Enviroment/Namespace: "${var.deployment_environment}"
   Chart version: "${var.release_version}"
 
-  Author: Fuchicorp
+  Author: FuchiCorp LLC
+  Email: contact@fuchicorp.com
 
  ###############################################################
 
