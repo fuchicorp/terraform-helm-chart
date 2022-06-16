@@ -11,7 +11,7 @@ locals {
   template_all_values = merge(local.required_values, var.template_custom_vars)
   timeout             = var.timeout
   recreate_pods       = var.recreate_pods
-  trigger = var.trigger == "UUID" ? uuid() : var.trigger
+  trigger             = var.trigger == "UUID" ? uuid() : var.trigger
 }
 
 
