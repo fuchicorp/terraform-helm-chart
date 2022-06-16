@@ -66,7 +66,6 @@ module "helm_deploy_local" {
   }
 }
 ```
-
 Create variables in `values.yaml` file
 ```
 image:
@@ -129,7 +128,7 @@ EOF
 }
 ```
 
-You can go ahead and create `variables.tf` and use them to deploy the Grafana server into your Kubernetes Cluster
+Now, create `variables.tf` and use them to deploy the Grafana server in your Kubernetes Cluster
 ```
 variable "grafana_endpoint" {
   default = "grafana.domain.com"
@@ -141,16 +140,17 @@ variable "grafana_replicas" {
 ```
     
 ## Example Local Chart Deployment 
-In this example, you will learn how to use this module to deploy your local charts without packaging them. First, you will need to create your own local helm chart, to quickly do that, run 
+In this example, you will learn how to use this module to deploy your local charts without packaging them. 
+First, you will need to create your own local helm chart, to quickly do that, run:
 ```sh
 mkdir -p ~/terraform/charts
 cd ~/terraform/
 ```
-Now you have the base folder and good to go ahead and create your local chart
+After creating a base folder now create local chart
 ```sh
 helm create charts/my-example-chart
 ```
-Create `module.tf` file to call the module on terraform registry then customize it as needed.
+Create `module.tf` file to call the module from terraform registry then modify it as needed.
 
 ```hcl
 module "helm_deploy_local" {
@@ -167,14 +167,13 @@ module "helm_deploy_local" {
   }
 }
 ```
-
-Once you have the default local helm chart you can go ahead and create and use variables from terraform inside your `values.yaml`
+Once you have the default local helm chart you can create variables inside `values.yaml` file
 ```
 image:
-  repository: ${deployment_image}
-  pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ${deployment_image_tag}
+  repository: ${deployment_image}                                     ## my-example-chart.domain.com
+  pullPolicy: IfNotPresent            
+  # Overrides the image's tag (default tag is the chart appVersion)  
+  tag: ${deployment_image_tag}                                        ## latest
 
 ingress:
   enabled: true
@@ -182,12 +181,12 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: ${deployment_endpoint}
+    - host: ${deployment_endpoint}                                    ## my-example-chart.domain.com
       paths: []
   tls:
   - secretName: chart-example-tls
     hosts:
-    - ${deployment_endpoint}
+    - ${deployment_endpoint}                                          ## my-example-chart.domain.com
 ```
 
 Now its time to initialize the terraform and deploy it 
