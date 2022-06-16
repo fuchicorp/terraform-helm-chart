@@ -18,9 +18,11 @@ This terraform module will help you deploy the helm charts on local.
 1. Make sure you have `kubectl` installed and `~/.kube/config` file configured
 2. Make sure that terraform also installed and follows requirements
 
-    * Kubernetes  >=  v1.14.8
+  * Terraform v0.13.7
+    + provider registry.terraform.io/hashicorp/helm v2.5.1
+    + provider registry.terraform.io/hashicorp/local v2.2.3
+    + provider registry.terraform.io/hashicorp/template v2.2.0
 
-    * Terraform >= 0.11.7
 
 ## Remote chart deployment
 Create `module.tf` to call the module from terraform registry, then modify it under the data section by stating your custom values as your chart needed.
@@ -166,6 +168,7 @@ module "helm_deploy_local" {
     deployment_image_tag = "latest"
   }
 }
+
 ```
 Once you have the default local helm chart you can create variables inside `values.yaml` file
 ```
@@ -209,7 +212,6 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 | `remote_chart`           | Specify whether to deploy remote_chart to `"true"` or `"false"` default value is `"false"`  | `(Optional)` | `bool`          |
 | `enabled`                | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool`          |
 | `template_custom_vars`   | Template custom veriables you can modify variables by parsting the `template_custom_vars`   | `(Optional)` | `map`           |
-| `env_vars`               | Environment veriable for the containers takes map                                           | `(Optional)` | `map`           |
 | `timeout`                | If you would like to increase the timeout                                                   | `(Optional)` | `number`        |
 | `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |       
 | `values`                 | Name of the values.yaml file                                                                | `(Optional)` | `string`        |
