@@ -4,54 +4,92 @@ This terraform module will help you deploy the helm charts on local.
 
 - [Requirements](#requirements)
 
-- [Usage remote chart](#usage-remote-chart)
+- [Remote chart deployment](#remote-chart-deployment)
 
-- [Exmaple Remote Chart Deployment](#exmaple-remote-chart-deployment )
+- [Local chart deployment](#local-chart-deployment)
+
+- [Example Remote Chart Deployment](#example-remote-chart-deployment )
 
 - [Example Local Chart Deployment](#example-local-chart-deployment )
 
 - [Variables](#variables)
 
 ## Requirements
-1. Make sure that you have `kubectl` installed and you have configured your `~/.kube/config` 
+1. Make sure you have `kubectl` installed and `~/.kube/config` file configured
 2. Make sure that terraform also installed and follows requirements
 
-  * Kubernetes  >=  v1.14.8
+    * Kubernetes  >=  v1.14.8
 
-  * Terraform >= 0.11.7
+    * Terraform >= 0.11.7
 
-
-## Usage remote chart
-
-First you will need to find the proper helm chart from the https://artifacthub.io/
-```
-mkdir ~/example-deployment 
-cd ~/example-deployment 
-```
-
-Create `module.tf` to call the module on terraform registry, then customize it under the data section by stating your custom values as your chart needed.
+## Remote chart deployment
+Create `module.tf` to call the module from terraform registry, then modify it under the data section by stating your custom values as your chart needed.
 
 ```hcl
 module "helm_deploy" {
   source                 = "fuchicorp/chart/helm"
-  remote_chart           = "true"                             ## Set to true to remote chart false to local charts
-  chart_repo             = "https://github.io/helm-charts"    ## Here provide the repository url 
+  remote_chart           = "true"                             ## Set to true for remote chart
+  chart_repo             = "https://github.io/helm-charts"    ## Provide repository url 
   enabled                = "true"                             ## Enable to deploy the chart
   deployment_name        = "example-deployment-name"          ## Release name in the namespace
   deployment_environment = "dev"                              ## Kubernetes Namespace
   deployment_path        = "example-remote-name"              ## Name of the remote chart 
-  release_version        = "#example chart version"           ## Helm chart version 
+  release_version        = "#example chart version"           ## Version of Helm chart
   
-  ## Your custom values.yaml
+## Your custom values.yaml
   remote_override_values = <<EOF
 ## Put here your custom values like to override the values.yaml
-replicas: 2
-EOF 
-}
-
+  replicas: 2
+  EOF 
+  }
 ```
-After you are done with all the custom configurations now you can go ahead and do the deployment
+When you finish all the custom configurations you can start the deployment
 ```sh
+terraform init && terraform apply 
+```
+
+## Local chart deployment
+Create `module.tf` file to call the module from terraform registry then modify it as needed.
+
+```hcl
+module "helm_deploy_local" {
+  source                 = "fuchicorp/chart/helm"
+  deployment_name        = "my-example-chart"                   ## Release name in the namespace
+  deployment_environment = "dev"                                ## Kubernetes Namespace
+  deployment_path        = "charts/my-example-chart"            ## Remote chart location
+  remote_chart           = "false"                              ## Set to false for local chart
+  enabled                = "true"                               ## Enable to deploy the chart
+  template_custom_vars   = {
+    deployment_endpoint  = "my-example-chart.domain.com"
+    deployment_image     = "nginx"
+    deployment_image_tag = "latest"
+  }
+}
+```
+
+Create variables in `values.yaml` file
+```
+image:
+  repository: ${deployment_image}
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ${deployment_image_tag}
+
+ingress:
+  enabled: true
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: ${deployment_endpoint}
+      paths: []
+  tls:
+  - secretName: chart-example-tls
+    hosts:
+    - ${deployment_endpoint}
+```
+Now its time to initialize the terraform and deploy it 
+```
 terraform init && terraform apply 
 ```
 
@@ -69,6 +107,7 @@ module "helm_deploy_remote" {
   remote_chart           = "true"
   release_version        = "6.22.0"
   remote_override_values = <<EOF
+
 ## Grafana 
 replicas: ${var.grafana_replicas}
 
@@ -155,9 +194,6 @@ Now its time to initialize the terraform and deploy it
 ```
 terraform init && terraform apply 
 ```
-
-
-
 ## Variables
 
 For more info, please see the [variables file](https://github.com/fuchicorp/terraform-helm-chart/blob/master/variables.tf).
