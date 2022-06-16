@@ -18,9 +18,10 @@ This terraform module will help you deploy the helm charts on local.
 1. Make sure that you have `kubectl` installed and you have configured your `~/.kube/config` 
 2. Make sure that terraform also installed and follows requirements
 
-  * Kubernetes  >=  v1.14.8
-
-  * Terraform >= 0.13.7
+  * Terraform v0.13.7
+    + provider registry.terraform.io/hashicorp/helm v2.5.1
+    + provider registry.terraform.io/hashicorp/local v2.2.3
+    + provider registry.terraform.io/hashicorp/template v2.2.0
 
 
 ## Usage remote chart
