@@ -69,10 +69,10 @@ module "helm_deploy_local" {
 Create variables in `values.yaml` file
 ```
 image:
-  repository: ${deployment_image}
+  repository: ${deployment_image}                                   ## my-example-chart.domain.com
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: ${deployment_image_tag}
+  # Overrides the image's tag (default tag is the chart appVersion) 
+  tag: ${deployment_image_tag}                                      ## latest
 
 ingress:
   enabled: true
@@ -80,12 +80,12 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: ${deployment_endpoint}
+    - host: ${deployment_endpoint}                                  ## my-example-chart.domain.com
       paths: []
   tls:
   - secretName: chart-example-tls
     hosts:
-    - ${deployment_endpoint}
+    - ${deployment_endpoint}                                        ## my-example-chart.domain.com
 ```
 Now its time to initialize the terraform and deploy it 
 ```
@@ -117,13 +117,13 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: ${var.grafana_endpoint}
+    - host: ${var.grafana_endpoint}                         ## grafana.domain.com
       paths:
       - '/'
   tls:
   - secretName: chart-example-tls
     hosts:
-    - ${var.grafana_endpoint}
+    - ${var.grafana_endpoint}                               ## grafana.domain.com
 EOF 
 }
 ```
@@ -155,11 +155,11 @@ Create `module.tf` file to call the module from terraform registry then modify i
 ```hcl
 module "helm_deploy_local" {
   source                 = "fuchicorp/chart/helm"
-  deployment_name        = "my-example-chart"
-  deployment_environment = "dev"
-  deployment_path        = "charts/my-example-chart"
-  remote_chart           = "false"
-  enabled                = "true"
+  deployment_name        = "my-example-chart"                     ## Release name in the namespace
+  deployment_environment = "dev"                                  ## Kubernetes Namespace
+  deployment_path        = "charts/my-example-chart"              ## Remote chart location
+  remote_chart           = "false"                                ## Set to false for local chart
+  enabled                = "true"                                 ## Enable to deploy the chart
   template_custom_vars   = {
     deployment_endpoint  = "my-example-chart.domain.com"
     deployment_image     = "nginx"
