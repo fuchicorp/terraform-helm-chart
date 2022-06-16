@@ -69,7 +69,7 @@ module "helm_deploy_local" {
 Create variables in `values.yaml` file
 ```
 image:
-  repository: ${deployment_image}                                   ## my-example-chart.domain.com
+  repository: ${deployment_image}                                   ## nginx
   pullPolicy: IfNotPresent
   # Overrides the image's tag (default tag is the chart appVersion) 
   tag: ${deployment_image_tag}                                      ## latest
@@ -170,7 +170,7 @@ module "helm_deploy_local" {
 Once you have the default local helm chart you can create variables inside `values.yaml` file
 ```
 image:
-  repository: ${deployment_image}                                     ## my-example-chart.domain.com
+  repository: ${deployment_image}                                     ## nginx
   pullPolicy: IfNotPresent            
   # Overrides the image's tag (default tag is the chart appVersion)  
   tag: ${deployment_image_tag}                                        ## latest
