@@ -30,9 +30,9 @@ Create `module.tf` to call the module from terraform registry, then modify it un
 ```hcl
 module "helm_deploy" {
   source                 = "fuchicorp/chart/helm"
-  remote_chart           = "true"                             ## Set to true for remote chart
+  remote_chart           = true                             ## Set to true for remote chart
   chart_repo             = "https://github.io/helm-charts"    ## Provide repository url 
-  enabled                = "true"                             ## Enable to deploy the chart
+  enabled                = true                             ## Enable to deploy the chart
   deployment_name        = "example-deployment-name"          ## Release name in the namespace
   deployment_environment = "dev"                              ## Kubernetes Namespace
   deployment_path        = "example-remote-name"              ## Name of the remote chart 
@@ -59,8 +59,8 @@ module "helm_deploy_local" {
   deployment_name        = "my-example-chart"                   ## Release name in the namespace
   deployment_environment = "dev"                                ## Kubernetes Namespace
   deployment_path        = "charts/my-example-chart"            ## Remote chart location
-  remote_chart           = "false"                              ## Set to false for local chart
-  enabled                = "true"                               ## Enable to deploy the chart
+  remote_chart           = false                              ## Set to false for local chart
+  enabled                = true                               ## Enable to deploy the chart
   template_custom_vars   = {
     deployment_endpoint  = "my-example-chart.domain.com"
     deployment_image     = "nginx"
@@ -80,7 +80,7 @@ ingress:
   enabled: true
   annotations: {}
     # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    # kubernetes.io/tls-acme: true
   hosts:
     - host: ${deployment_endpoint}                                  ## my-example-chart.domain.com
       paths: []
@@ -104,8 +104,8 @@ module "helm_deploy_remote" {
   deployment_environment = "dev"
   deployment_path        = "grafana/grafana"
   chart_repo             = "https://grafana.github.io/helm-charts"
-  enabled                = "true"
-  remote_chart           = "true"
+  enabled                = true
+  remote_chart           = true
   release_version        = "6.22.0"
   remote_override_values = <<EOF
 
@@ -117,7 +117,7 @@ ingress:
   enabled: true
   annotations: {}
     # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    # kubernetes.io/tls-acme: true
   hosts:
     - host: ${var.grafana_endpoint}                         ## grafana.domain.com
       paths:
@@ -160,8 +160,8 @@ module "helm_deploy_local" {
   deployment_name        = "my-example-chart"                     ## Release name in the namespace
   deployment_environment = "dev"                                  ## Kubernetes Namespace
   deployment_path        = "charts/my-example-chart"              ## Remote chart location
-  remote_chart           = "false"                                ## Set to false for local chart
-  enabled                = "true"                                 ## Enable to deploy the chart
+  remote_chart           = false                                ## Set to false for local chart
+  enabled                = true                                 ## Enable to deploy the chart
   template_custom_vars   = {
     deployment_endpoint  = "my-example-chart.domain.com"
     deployment_image     = "nginx"
@@ -182,7 +182,7 @@ ingress:
   enabled: true
   annotations: {}
     # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+    # kubernetes.io/tls-acme: true
   hosts:
     - host: ${deployment_endpoint}                                    ## my-example-chart.domain.com
       paths: []
@@ -209,8 +209,8 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 | `release_version`        | Specify the exact chart version to install.                                                 | `(Optional)` | `string`        |
 | `remote_override_values` | Specify the name of the file to override default `values.yaml file`                         | `(Optional)` | `string`        |
 | `chart_repo`             | Url of the repository for the helm charts                                                   | `(Optional)` | `string`        |
-| `remote_chart`           | Specify whether to deploy remote_chart to `"true"` or `"false"` default value is `"false"`  | `(Optional)` | `bool`          |
-| `enabled`                | Specify if you want to deploy the enabled to `"true"` or `"false"` default value is `"true"`| `(Optional)` | `bool`          |
+| `remote_chart`           | Specify whether to deploy remote_chart to `true` or `false` default value is `false`  | `(Optional)` | `bool`          |
+| `enabled`                | Specify if you want to deploy the enabled to `true` or `false` default value is `true`| `(Optional)` | `bool`          |
 | `template_custom_vars`   | Template custom veriables you can modify variables by parsting the `template_custom_vars`   | `(Optional)` | `map`           |
 | `timeout`                | If you would like to increase the timeout                                                   | `(Optional)` | `number`        |
 | `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |       

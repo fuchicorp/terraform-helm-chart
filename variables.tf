@@ -21,12 +21,14 @@ variable "release_version" {
 }
 
 variable "remote_chart" {
-  default     = "false"
+  type        = bool
+  default     = false
   description = "-(Optional) For the remote charts set to <true>"
 }
 
 variable "enabled" {
-  default     = "true"
+  type        = bool
+  default     = true
   description = "-(Optional) deployment can be disabled or enabled by using this bool!"
 }
 
@@ -45,7 +47,8 @@ variable "timeout" {
 }
 
 variable "recreate_pods" {
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "values" {
