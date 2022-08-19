@@ -17,7 +17,7 @@ locals {
 
 ## The remote chart deployment 
 resource "helm_release" "helm_remote_deployment" {
-  count         = var.enabled == "true" && var.remote_chart == "true" ? 1 : 0
+  count         = var.enabled == true && var.remote_chart == true ? 1 : 0
   name          = var.deployment_name
   namespace     = var.deployment_environment
   chart         = var.deployment_path
@@ -33,7 +33,7 @@ resource "helm_release" "helm_remote_deployment" {
 
 ## The local chart deployment
 resource "helm_release" "helm_local_deployment" {
-  count         = var.enabled == "true" && var.remote_chart == "false" ? 1 : 0
+  count         = var.enabled == true && var.remote_chart == false ? 1 : 0
   name          = var.deployment_name
   namespace     = var.deployment_environment
   chart         = var.deployment_path
@@ -48,7 +48,7 @@ resource "helm_release" "helm_local_deployment" {
 
 ## The local chart values.yaml
 data "template_file" "local_chart_values_template" {
-  count    = var.enabled == "true" && var.remote_chart == "false" ? 1 : 0
+  count    = var.enabled == true && var.remote_chart == false ? 1 : 0
   template = file("${var.deployment_path}/${var.values}")
   vars     = local.template_all_values
 }
