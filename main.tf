@@ -42,13 +42,18 @@ resource "helm_release" "helm_local_deployment" {
   version       = var.release_version
 
   values = [
-    trimspace(data.template_file.local_chart_values_template.0.rendered),
+    trimspace(templatefile("${var.deployment_path}/${var.values}",
+    {
+      "template_all_values"=local.template_all_values
+    })),
   ]
 }
 
+
+
 ## The local chart values.yaml
-data "template_file" "local_chart_values_template" {
-  count    = var.enabled == true && var.remote_chart == false ? 1 : 0
-  template = file("${var.deployment_path}/${var.values}")
-  vars     = local.template_all_values
-}
+# data "template_file" "local_chart_values_template" {
+#   count    = var.enabled == true && var.remote_chart == false ? 1 : 0
+#   template = file("${var.deployment_path}/${var.values}")
+#   vars     = local.template_all_values
+# }
