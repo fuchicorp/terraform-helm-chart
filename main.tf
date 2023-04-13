@@ -48,12 +48,3 @@ resource "helm_release" "helm_local_deployment" {
     })),
   ]
 }
-
-
-
-## The local chart values.yaml
-# data "template_file" "local_chart_values_template" {
-#   count    = var.enabled == true && var.remote_chart == false ? 1 : 0
-#   template = file("${var.deployment_path}/${var.values}")
-#   vars     = local.template_all_values
-# }
