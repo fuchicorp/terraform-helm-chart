@@ -42,9 +42,6 @@ resource "helm_release" "helm_local_deployment" {
   version       = var.release_version
 
   values = [
-    trimspace(templatefile("${var.deployment_path}/${var.values}",
-    {
-      "template_all_values"=local.template_all_values
-    })),
+    trimspace(templatefile("${var.deployment_path}/${var.values}", local.template_all_values))
   ]
 }
