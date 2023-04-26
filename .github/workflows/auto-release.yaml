@@ -1,0 +1,35 @@
+---
+name: "FuchiCorp Automated Release Versioning"
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  pre-release:
+    name: "FuchiCorp Automated Release Versioning"
+    runs-on: "ubuntu-latest"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+        
+    - name: Release
+      uses: cycjimmy/semantic-release-action@v3
+      with:
+        semantic_version: 18.0.0
+        extra_plugins: |
+          @semantic-release/changelog@6.0.0
+          @semantic-release/git@10.0.0
+          conventional-changelog-conventionalcommits@4.6.3
+      env:
+        GITHUB_TOKEN: ${{ secrets.RELEASE_GITHUB_TOKEN }}
+
+    - name: Do something when a new release published
+      if: steps.Release.outputs.new_release_published == 'true'
+      run: |
+        echo ${{ steps.semantic.outputs.new_release_version }}
+        echo ${{ steps.semantic.outputs.new_release_major_version }}
+        echo ${{ steps.semantic.outputs.new_release_minor_version }}
+        echo ${{ steps.semantic.outputs.new_release_patch_version }}
