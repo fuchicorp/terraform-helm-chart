@@ -1,0 +1,10 @@
+---
+name: "FuchiCorp Automated Release Versioning"
+
+on:
+  workflow_dispatch:
+
+jobs:
+  common-actions:
+    uses: fuchicorp/common_actions/.github/workflows/auto-release.yaml@master
+    secrets: inherit
