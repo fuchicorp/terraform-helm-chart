@@ -1,7 +1,7 @@
 name: FuchiCorp Source Code Checks!
 
 on:
- workflow_dispatch:
+  workflow_dispatch:
   push:
       branches:
         - '*'         # matches every branch that doesn't contain a '/'
