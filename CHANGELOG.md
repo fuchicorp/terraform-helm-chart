@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+### [0.2.1](https://github.com/fuchicorp/terraform-helm-chart/compare/v0.2.0...v0.2.1) (2023-11-12)
+
+
+### Bug Fixes
+
+* .terraform.lock.hcl has to managed from the client side ([13af66d](https://github.com/fuchicorp/terraform-helm-chart/commit/13af66db2c1b1570a303b5d7f7869ee29523abb1))
+* Removed the local and template after templatefile was implemented ([d181ad2](https://github.com/fuchicorp/terraform-helm-chart/commit/d181ad266fb5e9ea2dcb937e6af1510c75eaa2c0))
+
 ## [0.2.0](https://github.com/fuchicorp/terraform-helm-chart/compare/v0.1.1...v0.2.0) (2023-11-12)
 
 
