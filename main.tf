@@ -3,7 +3,7 @@ locals {
     # Deployment endpoint for ingress
     deployment_endpoint = lower(var.deployment_endpoint)
 
-    ## The release name will be 
+    ## The release name will be
     deployment_name = lower(var.deployment_name)
   }
 
@@ -15,7 +15,7 @@ locals {
 }
 
 
-## The remote chart deployment 
+## The remote chart deployment
 resource "helm_release" "helm_remote_deployment" {
   count         = var.enabled == true && var.remote_chart == true ? 1 : 0
   name          = var.deployment_name

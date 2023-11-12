@@ -65,4 +65,3 @@ variable "chart_repo" {
   default     = ""
   description = "-(Optional) Provide the remote helm charts repository."
 }
-

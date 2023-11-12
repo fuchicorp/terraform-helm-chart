@@ -1,13 +1,29 @@
 name: FuchiCorp Source Code Checks!
 
 on:
-  workflow_dispatch:
-  push:
-      branches:
-        - '*'         # matches every branch that doesn't contain a '/'
-        - '*/*'       # matches every branch containing a single '/'
-        - '**'        # matches every branch
+  workflow_call:
 
 jobs:
-  common-actions:
-    uses: fuchicorp/common_actions/.github/workflows/pre-commit.yml@master
+  required-pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-python@v3
+
+    - run: python -m pip install  pre-commit==2.17.0 shellcheck-py==0.8.0.3
+      shell: bash
+
+    - run: python -m pip freeze --local
+      shell: bash
+
+    - uses: actions/cache@v3
+      with:
+        path: ~/.cache/pre-commit
+        key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+    - name: Commit and push minor fixes by pre-commit
+      run: |
+        pre-commit run --show-diff-on-failure --color=always --all-files
+      shell: bash
+      working-directory: ${{ github.workspace }}

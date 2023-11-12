@@ -31,23 +31,23 @@ Create `module.tf` to call the module from terraform registry, then modify it un
 module "helm_deploy" {
   source                 = "fuchicorp/chart/helm"
   remote_chart           = true                             ## Set to true for remote chart
-  chart_repo             = "https://github.io/helm-charts"    ## Provide repository url 
+  chart_repo             = "https://github.io/helm-charts"    ## Provide repository url
   enabled                = true                             ## Enable to deploy the chart
   deployment_name        = "example-deployment-name"          ## Release name in the namespace
   deployment_environment = "dev"                              ## Kubernetes Namespace
-  deployment_path        = "example-remote-name"              ## Name of the remote chart 
+  deployment_path        = "example-remote-name"              ## Name of the remote chart
   release_version        = "#example chart version"           ## Version of Helm chart
-  
+
 ## Your custom values.yaml
   remote_override_values = <<EOF
 ## Put here your custom values like to override the values.yaml
   replicas: 2
-  EOF 
+  EOF
   }
 ```
 When you finish all the custom configurations you can start the deployment
 ```sh
-terraform init && terraform apply 
+terraform init && terraform apply
 ```
 
 ## Local chart deployment
@@ -73,7 +73,7 @@ Create variables in `values.yaml` file
 image:
   repository: ${deployment_image}                                   ## nginx
   pullPolicy: IfNotPresent
-  # Overrides the image's tag (default tag is the chart appVersion) 
+  # Overrides the image's tag (default tag is the chart appVersion)
   tag: ${deployment_image_tag}                                      ## latest
 
 ingress:
@@ -89,13 +89,13 @@ ingress:
     hosts:
     - ${deployment_endpoint}                                        ## my-example-chart.domain.com
 ```
-Now its time to initialize the terraform and deploy it 
+Now its time to initialize the terraform and deploy it
 ```
-terraform init && terraform apply 
+terraform init && terraform apply
 ```
 
-## Example Remote Chart Deployment 
-In the case of remote chart deployment, you can follow the above instruction to deploy grafana 
+## Example Remote Chart Deployment
+In the case of remote chart deployment, you can follow the above instruction to deploy grafana
 
 ```hcl
 module "helm_deploy_remote" {
@@ -109,7 +109,7 @@ module "helm_deploy_remote" {
   release_version        = "6.22.0"
   remote_override_values = <<EOF
 
-## Grafana 
+## Grafana
 replicas: ${var.grafana_replicas}
 
 ## Ingress for the grafana
@@ -126,7 +126,7 @@ ingress:
   - secretName: chart-example-tls
     hosts:
     - ${var.grafana_endpoint}                               ## grafana.domain.com
-EOF 
+EOF
 }
 ```
 
@@ -140,9 +140,9 @@ variable "grafana_replicas" {
   default = 1
 }
 ```
-    
-## Example Local Chart Deployment 
-In this example, you will learn how to use this module to deploy your local charts without packaging them. 
+
+## Example Local Chart Deployment
+In this example, you will learn how to use this module to deploy your local charts without packaging them.
 First, you will need to create your own local helm chart, to quickly do that, run:
 ```sh
 mkdir -p ~/terraform/charts
@@ -174,8 +174,8 @@ Once you have the default local helm chart you can create variables inside `valu
 ```
 image:
   repository: ${deployment_image}                                     ## nginx
-  pullPolicy: IfNotPresent            
-  # Overrides the image's tag (default tag is the chart appVersion)  
+  pullPolicy: IfNotPresent
+  # Overrides the image's tag (default tag is the chart appVersion)
   tag: ${deployment_image_tag}                                        ## latest
 
 ingress:
@@ -192,9 +192,9 @@ ingress:
     - ${deployment_endpoint}                                          ## my-example-chart.domain.com
 ```
 
-Now its time to initialize the terraform and deploy it 
+Now its time to initialize the terraform and deploy it
 ```
-terraform init && terraform apply 
+terraform init && terraform apply
 ```
 ## Variables
 
@@ -213,7 +213,7 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 | `enabled`                | Specify if you want to deploy the enabled to `true` or `false` default value is `true`| `(Optional)` | `bool`          |
 | `template_custom_vars`   | Template custom veriables you can modify variables by parsting the `template_custom_vars`   | `(Optional)` | `map`           |
 | `timeout`                | If you would like to increase the timeout                                                   | `(Optional)` | `number`        |
-| `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |       
+| `recreate_pods`          | On update performs pods restart for the resource if applicable.                             | `(Optional)` | `bool`          |
 | `values`                 | Name of the values.yaml file                                                                | `(Optional)` | `string`        |
 
 
@@ -221,4 +221,4 @@ For more info, please see the [variables file](https://github.com/fuchicorp/terr
 Request a feature at: https://github.com/fuchicorp/terraform-helm-chart/issues Fork and create PR
 
 ## Owner
-This terraform module developed by the FuchiCorp LLC DevOps team. Thanks for using our chart, Enjoy using it! 
+This terraform module developed by the FuchiCorp LLC DevOps team. Thanks for using our chart, Enjoy using it!
