@@ -11,3 +11,4 @@
 
 # terraform module testing folder
 *test*
+.terraform

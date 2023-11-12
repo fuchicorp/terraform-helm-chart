@@ -33,7 +33,7 @@ variable "enabled" {
 }
 
 variable "template_custom_vars" {
-  type        = map
+  type        = map(any)
   default     = {}
   description = "-(Optional) Local chart replace variables from values.yaml"
 }
@@ -47,8 +47,8 @@ variable "timeout" {
 }
 
 variable "recreate_pods" {
-  type        = bool
-  default     = false
+  type    = bool
+  default = false
 }
 
 variable "values" {
