@@ -1,7 +1,12 @@
 name: FuchiCorp Source Code Checks!
 
 on:
-  workflow_call:
+ workflow_dispatch:
+  push:
+      branches:
+        - '*'         # matches every branch that doesn't contain a '/'
+        - '*/*'       # matches every branch containing a single '/'
+        - '**'        # matches every branch
 
 jobs:
   required-pre-commit:
