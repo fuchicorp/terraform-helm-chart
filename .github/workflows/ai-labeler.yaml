@@ -14,4 +14,3 @@ jobs:
     with:
       script_path: github-management/ai-smart-labeler/ai-issue-labeler.py
       requirements_file: github-management/ai-smart-labeler/requirements.txt
-
