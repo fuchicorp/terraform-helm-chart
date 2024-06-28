@@ -1,0 +1,16 @@
+
+name: FuchiCorp LLC AI labeler
+
+on:
+  issues:
+    types: [ opened, edited, synchronyze, reopened ]
+  pull_request:
+    types: [ opened, edited, synchronyze, reopened ]
+
+jobs:
+  common-actions:
+    secrets: inherit
+    uses: fuchicorp/common_actions/.github/workflows/python-script-executor.yml@master
+    with:
+      script_path: github-management/ai-smart-labeler/ai-issue-labeler.py
+      requirements_file: github-management/ai-smart-labeler/requirements.txt
