@@ -20,6 +20,9 @@ jobs:
         sudo mv terraform /usr/bin/terraform && chmod +x /usr/bin/terraform
       shell: bash
 
+    - run: terraform init
+      shell: bash
+
     - uses: actions/setup-python@v3
 
     - run: python -m pip install  pre-commit==2.17.0 shellcheck-py==0.8.0.3
