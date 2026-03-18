@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0](https://github.com/fuchicorp/terraform-helm-chart/compare/v0.2.1...v0.3.0) (2026-03-18)
+
+
+### Features
+
+* Implemented the issue and pull request AI labeler ([#43](https://github.com/fuchicorp/terraform-helm-chart/issues/43)) ([c975fcd](https://github.com/fuchicorp/terraform-helm-chart/commit/c975fcdad0fec081be4992055657970036d0f449))
+
+
+### Bug Fixes
+
+* add terraform installation step to pre-commit workflow ([5341f7f](https://github.com/fuchicorp/terraform-helm-chart/commit/5341f7fb34d7baccd24115fc464bb46446a4ccde))
+* Fixed the pre commit syntax and added the lock file ([498a9b7](https://github.com/fuchicorp/terraform-helm-chart/commit/498a9b7c092dccd13b7765159124359e22ee9d69))
+* run terraform init after installation in pre-commit workflow ([a34d713](https://github.com/fuchicorp/terraform-helm-chart/commit/a34d713188c72704ecfe3bced97581e2746ae934))
+* update GitHub Actions versions to fix Node.js deprecation warning ([c71b858](https://github.com/fuchicorp/terraform-helm-chart/commit/c71b85843cc9e68f7c83a587c7e46f68427c32a9))
+
 ### [0.2.1](https://github.com/fuchicorp/terraform-helm-chart/compare/v0.2.0...v0.2.1) (2023-11-12)
 
 
